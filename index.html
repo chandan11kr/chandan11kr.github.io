@@ -4,123 +4,338 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Chandan Kumar Paswan | Portfolio</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    :root {
+      --primary-color: #0078d7;
+      --text-color: #222;
+      --bg-color: #f8f9fa;
+      --link-color: #005bb5;
+      --button-bg: #0078d7;
+      --button-text: #fff;
+      --button-hover: #005bb5;
+    }
+
+    [data-theme="dark"] {
+      --primary-color: #0a84ff;
+      --text-color: #f1f1f1;
+      --bg-color: #1c1c1e;
+      --link-color: #61dafb;
+      --button-bg: #1e90ff;
+      --button-text: #fff;
+      --button-hover: #0a5ed7;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+      scroll-behavior: smooth;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    header {
+      background: var(--primary-color);
+      color: white;
+      padding: 15px 25px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    header h1 {
+      font-size: 1.3rem;
+      letter-spacing: 0.5px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      position: relative;
+      transition: 0.3s;
+    }
+
+    nav ul li a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 0%;
+      height: 2px;
+      background: white;
+      transition: 0.3s;
+    }
+
+    nav ul li a:hover::after {
+      width: 100%;
+    }
+
+    .menu-icon {
+      display: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+    }
+
+    .theme-toggle {
+      background: white;
+      border: none;
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      color: var(--primary-color);
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .theme-toggle:hover {
+      background: #e2e2e2;
+    }
+
+    .side-menu {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      height: 100%;
+      background: var(--primary-color);
+      color: white;
+      transition: 0.4s;
+      padding-top: 60px;
+      z-index: 200;
+    }
+
+    .side-menu.active {
+      left: 0;
+    }
+
+    .side-menu ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .side-menu ul li {
+      padding: 15px 20px;
+    }
+
+    .side-menu ul li a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.1rem;
+    }
+
+    .section {
+      padding: 60px 20px;
+      max-width: 1000px;
+      margin: auto;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section h2 {
+      color: var(--primary-color);
+      margin-bottom: 10px;
+    }
+
+    .resume-btn {
+      display: inline-block;
+      margin-top: 15px;
+      background: var(--button-bg);
+      color: var(--button-text);
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-weight: 500;
+      text-decoration: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+    }
+
+    .resume-btn:hover {
+      background: var(--button-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.3);
+    }
+
+    a {
+      color: var(--link-color);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: var(--primary-color);
+      color: white;
+      margin-top: 30px;
+    }
+
+    .tech-icons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 25px;
+      margin-top: 15px;
+    }
+
+    .tech-icons img {
+      width: 60px;
+      height: 60px;
+      transition: transform 0.3s ease;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    }
+
+    .tech-icons img:hover {
+      transform: scale(1.15);
+    }
+
+    @media (max-width: 768px) {
+      nav ul {
+        display: none;
+      }
+      .menu-icon {
+        display: block;
+      }
+      .theme-toggle {
+        font-size: 0.8rem;
+      }
+    }
+  </style>
 </head>
 <body>
-  <!-- Header -->
   <header>
-    <nav class="navbar">
-      <h2 class="logo">Chandan<span>Paswan</span></h2>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#home" onclick="toggleMenu()">Home</a></li>
-        <li><a href="#about" onclick="toggleMenu()">About</a></li>
-        <li><a href="#skills" onclick="toggleMenu()">Skills</a></li>
-        <li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
-        <li><a href="#experience" onclick="toggleMenu()">Experience</a></li>
-        <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
+    <h1>Chandan Kumar Paswan</h1>
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <button class="theme-toggle" onclick="toggleTheme()">🌙 Dark</button>
+      <div class="menu-icon" onclick="toggleMenu()">☰</div>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
       </ul>
-      <div class="menu-icon" onclick="toggleMenu()">
-        ☰
-      </div>
     </nav>
   </header>
 
-  <!-- Home Section -->
-  <section id="home" class="section home">
-    <div class="content">
-      <h1>Hi, I'm <span>Chandan Kumar Paswan</span></h1>
-      <p>Software Developer | Angular | Node.js | SQL Server</p>
-      <a href="#contact" class="btn">Get in Touch</a>
+  <div class="side-menu" id="sideMenu">
+    <ul>
+      <li><a href="#about" onclick="toggleMenu()">About</a></li>
+      <li><a href="#skills" onclick="toggleMenu()">Skills</a></li>
+      <li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
+      <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
+    </ul>
+  </div>
+
+  <section id="about" class="section">
+    <h2>About Me</h2>
+    <p>
+      I'm <b>Chandan Kumar Paswan</b>, a passionate Software Developer with 5 years of experience in building scalable and high-performance web applications using Angular, .NET, and SQL Server. I love solving complex problems and improving system performance.
+    </p>
+    <a class="resume-btn" href="resume.pdf" target="_blank">📄 Download Resume</a>
+  </section>
+
+  <section id="skills" class="section">
+    <h2>Skills</h2>
+    <p>
+      <b>Frontend:</b> Angular, TypeScript, HTML, CSS, Ag-Grid, Socket.io<br>
+      <b>Backend:</b> .NET Core, C#, Web API<br>
+      <b>Database:</b> SQL Server (Stored Procedures)<br>
+      <b>Other:</b> Git, Postman, Agile, React (Basic)
+    </p>
+    <div class="tech-icons">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg" alt="Angular" title="Angular" />
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dot-net/dot-net-original.svg" alt=".NET" title=".NET" />
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg" alt="C#" title="C#" />
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" title="JavaScript" />
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript" title="TypeScript" />
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" title="HTML5" />
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" title="CSS3" />
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlserver/sqlserver-original.svg" alt="SQL Server" title="SQL Server" />
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" title="Git" />
     </div>
   </section>
 
-  <!-- About Section -->
-  <section id="about" class="section about">
-    <h2>About Me</h2>
-    <p>
-      I am a results-driven software developer with over <strong>5 years of experience</strong> 
-      in building dynamic and performance-optimized web applications. 
-      I specialize in <strong>Angular, Node.js</strong>, and <strong>SQL Server</strong>.
-      I love solving performance challenges, identifying hidden issues, and creating impactful solutions.
+  <section id="projects" class="section">
+    <h2>Projects</h2>
+    <p><b>1. Udyogasetu (Coworks Solutions Pvt. Ltd)</b><br>
+      A public platform for job posting, training, and services — connecting job seekers and providers.
+    </p>
+    <p><b>2. Airbus Chronos (Infosys)</b><br>
+      Internal dashboard for Airbus to track KPI metrics and aircraft part production performance.
+    </p>
+    <p><b>3. MyWizard (Accenture)</b><br>
+      Internal Accenture tool for project cost and FTE estimation — enhancing project planning and decision-making.
     </p>
   </section>
 
-  <!-- Skills -->
-  <section id="skills" class="section skills">
-    <h2>Technical Skills</h2>
-    <div class="skill-list">
-      <span>Angular</span>
-      <span>Node.js</span>
-      <span>SQL Server (Stored Procedures)</span>
-      <span>Ag-Grid Angular</span>
-      <span>Socket.io</span>
-      <span>REST APIs</span>
-      <span>HTML, CSS, JavaScript</span>
-      <span>React (Basic)</span>
-      <span>Highcharts</span>
-      <span>Git & GitHub</span>
-    </div>
-  </section>
-
-  <!-- Projects -->
-  <section id="projects" class="section projects">
-    <h2>Projects</h2>
-
-    <div class="project-card">
-      <h3>Udyogasetu</h3>
-      <p>Public domain platform connecting job seekers and employers. Built responsive UI with Angular and integrated REST APIs for real-time updates.</p>
-    </div>
-
-    <div class="project-card">
-      <h3>MyWizard (Accenture Internal Tool)</h3>
-      <p>Developed modules for performance analytics dashboards within Accenture’s automation suite using Angular and Highcharts.</p>
-    </div>
-
-    <div class="project-card">
-      <h3>Airbus Chronos (Infosys Client Project)</h3>
-      <p>Contributed to Airbus’s internal productivity application, creating KPI dashboards using Angular and Highcharts.</p>
-    </div>
-  </section>
-
-  <!-- Experience -->
-  <section id="experience" class="section experience">
-    <h2>Work Experience</h2>
-
-    <div class="exp-card">
-      <h3>Accenture</h3>
-      <p><strong>Custom Software Engineering Analyst</strong> | Jul 2024 – Present | Bangalore</p>
-      <p>Working on MyWizard internal tool — improved code quality, built reusable Angular components, and enhanced performance of dashboards.</p>
-    </div>
-
-    <div class="exp-card">
-      <h3>Infosys</h3>
-      <p><strong>Associate Business Analyst</strong> | Oct 2022 – Jul 2024 | Bangalore</p>
-      <p>Delivered key Angular components for Airbus Chronos web app, ensuring responsive and performant user experience.</p>
-    </div>
-
-    <div class="exp-card">
-      <h3>Coworks Solutions Pvt. Ltd.</h3>
-      <p><strong>Software Developer</strong> | Dec 2020 – Oct 2022 | Bangalore</p>
-      <p>Built and maintained internal business apps using Angular, Node.js, and SQL Server with a focus on clean architecture.</p>
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact" class="section contact">
+  <section id="contact" class="section">
     <h2>Contact</h2>
-    <p>📧 <a href="mailto:chandan11kr@gmail.com">chandan11kr@gmail.com</a></p>
-    <p>🌐 <a href="https://github.com/chandan11kr" target="_blank">github.com/chandan11kr</a></p>
-    <p>📍 Bangalore, India</p>
+    <p>📧 <b>Email:</b> chandan11kr5511@gmail.com<br>
+       📱 <b>Phone:</b> +91 9110022908<br>
+       🔗 <b>LinkedIn:</b> <a href="https://www.linkedin.com/in/chandan-kumar-paswan-592046135" target="_blank">linkedin.com/in/chandan-kumar-paswan-592046135</a>
+    </p>
   </section>
 
   <footer>
-    <p>© 2025 Chandan Kumar Paswan | Built with ❤️ and clean code</p>
+    <p>© 2025 Chandan Kumar Paswan. All Rights Reserved.</p>
   </footer>
 
   <script>
     function toggleMenu() {
-      document.getElementById('navLinks').classList.toggle('show');
+      document.getElementById("sideMenu").classList.toggle("active");
     }
+
+    const themeButton = document.querySelector(".theme-toggle");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+    if (prefersDark) {
+      document.body.setAttribute("data-theme", "dark");
+      themeButton.textContent = "🌞 Light";
+    }
+
+    function toggleTheme() {
+      const body = document.body;
+      if (body.getAttribute("data-theme") === "dark") {
+        body.removeAttribute("data-theme");
+        themeButton.textContent = "🌙 Dark";
+      } else {
+        body.setAttribute("data-theme", "dark");
+        themeButton.textContent = "🌞 Light";
+      }
+    }
+
+    const sections = document.querySelectorAll('.section');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.2 });
+    sections.forEach(sec => observer.observe(sec));
   </script>
 </body>
 </html>
