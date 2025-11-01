@@ -3,363 +3,353 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chandan Kumar Paswan | Portfolio</title>
+  <title>Chandan Paswan | Software Developer</title>
   <style>
     :root {
       --primary-color: #0078d7;
-      --text-color: #222;
-      --bg-color: #f8f9fa;
-      --link-color: #005bb5;
-      --button-bg: #0078d7;
-      --button-text: #fff;
-      --button-hover: #005bb5;
+      --bg-light: #ffffff;
+      --text-light: #1f1f1f;
+      --bg-dark: #121212;
+      --text-dark: #f1f1f1;
+      --transition-speed: 300ms;
     }
 
-    [data-theme="dark"] {
-      --primary-color: #0a84ff;
-      --text-color: #f1f1f1;
-      --bg-color: #1c1c1e;
-      --link-color: #61dafb;
-      --button-bg: #1e90ff;
-      --button-text: #fff;
-      --button-hover: #0a5ed7;
-    }
-
-    * {
+    /* --- Base & Theme --- */
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-      font-family: "Poppins", sans-serif;
-      scroll-behavior: smooth;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      background-color: var(--bg-light);
+      color: var(--text-light);
+      transition: background-color var(--transition-speed), color var(--transition-speed);
+      opacity: 0;
+      animation: fadeInBody 0.8s ease-in forwards;
     }
 
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      line-height: 1.6;
-      animation: fadeIn 0.3s ease;
+    @keyframes fadeInBody {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    body.dark-mode {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
     }
 
     header {
-      background: var(--primary-color);
+      background-color: var(--primary-color);
       color: white;
-      padding: 15px 25px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      padding: 1.5rem;
+      text-align: center;
+      position: relative;
     }
 
     header h1 {
-      font-size: 1.3rem;
-      letter-spacing: 0.5px;
-      flex: 1;
+      margin: 0;
+      font-size: 2rem;
+      letter-spacing: 1px;
     }
 
-    nav ul {
-      list-style: none;
+    header p {
+      margin: 0.3rem 0 0;
+      font-size: 1.1rem;
+    }
+
+    nav {
+      background-color: var(--bg-light);
       display: flex;
-      gap: 20px;
+      justify-content: center;
+      gap: 2rem;
+      padding: 0.8rem 0;
+      border-bottom: 1px solid #ccc;
+      transition: background-color var(--transition-speed);
     }
 
-    nav ul li a {
-      color: white;
+    nav a {
       text-decoration: none;
+      color: var(--text-light);
+      font-weight: 500;
       position: relative;
-      transition: 0.3s;
     }
 
-    nav ul li a::after {
+    nav a::after {
       content: "";
       position: absolute;
-      left: 0;
       bottom: -3px;
+      left: 0;
       width: 0%;
       height: 2px;
-      background: white;
-      transition: 0.3s;
+      background-color: var(--primary-color);
+      transition: width var(--transition-speed);
     }
 
-    nav ul li a:hover::after {
+    nav a:hover::after {
       width: 100%;
+    }
+
+    body.dark-mode nav {
+      background-color: var(--bg-dark);
     }
 
     .menu-icon {
       display: none;
       font-size: 1.8rem;
+      position: absolute;
+      right: 1.5rem;
+      top: 1.2rem;
       cursor: pointer;
-      margin-left: 10px;
-    }
-
-    .side-menu {
-      position: fixed;
-      top: 0;
-      left: -250px;
-      width: 250px;
-      height: 100%;
-      background: var(--primary-color);
       color: white;
-      transition: 0.4s;
-      padding-top: 60px;
-      z-index: 200;
-    }
-
-    .side-menu.active {
-      left: 0;
-    }
-
-    .side-menu ul {
-      list-style: none;
-      padding: 0;
-    }
-
-    .side-menu ul li {
-      padding: 15px 20px;
-    }
-
-    .side-menu ul li a {
-      color: white;
-      text-decoration: none;
-      font-size: 1.1rem;
     }
 
     .section {
-      padding: 60px 20px;
       max-width: 1000px;
-      margin: auto;
+      margin: 2rem auto;
+      padding: 0 1rem;
       opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
+      animation: fadeSlideUp 0.8s ease forwards;
     }
 
-    .section.visible {
-      opacity: 1;
-      transform: translateY(0);
+    .section:nth-child(2) { animation-delay: 0.2s; }
+    .section:nth-child(3) { animation-delay: 0.4s; }
+    .section:nth-child(4) { animation-delay: 0.6s; }
+
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .section h2 {
-      color: var(--primary-color);
-      margin-bottom: 10px;
-    }
-
-    .resume-btn {
+      border-bottom: 3px solid var(--primary-color);
       display: inline-block;
-      margin-top: 15px;
-      background: var(--button-bg);
-      color: var(--button-text);
-      padding: 12px 20px;
-      border-radius: 10px;
-      font-weight: 500;
-      text-decoration: none;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      transition: all 0.3s ease;
+      margin-bottom: 1rem;
+      padding-bottom: 0.3rem;
     }
 
-    .resume-btn:hover {
-      background: var(--button-hover);
-      transform: translateY(-3px);
-      box-shadow: 0 6px 14px rgba(0,0,0,0.3);
+    .grid {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .exp-card {
+      background-color: rgba(0, 120, 215, 0.05);
+      border-radius: 10px;
+      padding: 1rem 1.2rem;
+      transition: transform 0.2s ease-in-out, box-shadow 0.3s;
+    }
+
+    .exp-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .exp-card h3 {
+      color: var(--primary-color);
+      margin: 0;
+    }
+
+    .exp-card ul {
+      margin-top: 0.5rem;
+      padding-left: 1.2rem;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 0.8rem;
+    }
+
+    .skill {
+      background: rgba(0, 120, 215, 0.1);
+      border-radius: 6px;
+      text-align: center;
+      padding: 0.6rem;
+      font-weight: 500;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .skill:hover {
+      transform: translateY(-4px);
+      background-color: rgba(0, 120, 215, 0.2);
     }
 
     footer {
       text-align: center;
-      padding: 20px;
-      background: var(--primary-color);
+      padding: 1rem;
+      background-color: var(--primary-color);
       color: white;
-      margin-top: 30px;
+      margin-top: 2rem;
+      opacity: 0;
+      animation: fadeInBody 0.8s ease-in 0.7s forwards;
     }
 
-    .tech-icons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 25px;
-      margin-top: 15px;
-    }
-
-    .tech-icons img {
-      width: 60px;
-      height: 60px;
-      transition: transform 0.3s ease;
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
-    }
-
-    .tech-icons img:hover {
-      transform: scale(1.15);
-    }
-
-    /* Floating Theme Button */
+    /* Floating Theme Switcher */
     .theme-toggle {
       position: fixed;
       bottom: 20px;
       right: 20px;
-      background: var(--primary-color);
+      background-color: var(--primary-color);
       color: white;
       border: none;
       border-radius: 50%;
-      width: 45px;
-      height: 45px;
-      font-size: 1.4rem;
+      width: 48px;
+      height: 48px;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      transition: all 0.3s ease;
-      z-index: 300;
-      opacity: 1;
-    }
-
-    .theme-toggle.hide {
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(20px);
+      font-size: 1.3rem;
+      transition: transform var(--transition-speed);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
     }
 
     .theme-toggle:hover {
-      transform: scale(1.1);
-      background: var(--button-hover);
+      transform: rotate(25deg);
     }
 
+    /* Mobile styles */
     @media (max-width: 768px) {
-      nav ul {
+      nav {
         display: none;
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+        background-color: var(--bg-light);
+        position: absolute;
+        top: 65px;
+        left: -100%;
+        width: 100%;
+        transition: left 0.3s ease;
+        padding: 1.5rem 0;
       }
+
+      nav.active {
+        display: flex;
+        left: 0;
+      }
+
       .menu-icon {
         display: block;
+      }
+
+      header {
+        position: relative;
       }
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Chandan Kumar Paswan</h1>
-    <div class="menu-icon" onclick="toggleMenu()">☰</div>
-    <nav>
-      <ul>
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
+    <div class="menu-icon" id="menuToggle">☰</div>
+    <h1>Chandan Paswan</h1>
+    <p>Software Developer</p>
   </header>
 
-  <div class="side-menu" id="sideMenu">
-    <ul>
-      <li><a href="#about" onclick="toggleMenu()">About</a></li>
-      <li><a href="#skills" onclick="toggleMenu()">Skills</a></li>
-      <li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
-      <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
-    </ul>
-  </div>
+  <nav id="navMenu">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </nav>
 
-  <section id="about" class="section">
+  <section class="section" id="about">
     <h2>About Me</h2>
     <p>
-      I'm <b>Chandan Kumar Paswan</b>, a passionate Software Developer with 5 years of experience in building scalable and high-performance web applications using Angular, Node.js, and SQL Server. I enjoy solving complex problems and optimizing systems for better performance.
+      Experienced Software Developer with over 5 years of experience in building scalable, interactive web applications using Angular, Node.js, SQL Server, and modern web technologies. Known for improving performance and identifying critical issues proactively before production.
     </p>
-    <a class="resume-btn" href="resume.pdf" target="_blank">📄 Download Resume</a>
   </section>
 
-  <section id="skills" class="section">
-    <h2>Skills</h2>
-    <p>
-      <b>Frontend:</b> Angular, TypeScript, HTML, CSS, Ag-Grid, Socket.io<br>
-      <b>Backend:</b> Node.js, Java (Basic)<br>
-      <b>Database:</b> SQL Server (Stored Procedures)<br>
-      <b>Other:</b> Git, Postman, Agile, React (Basic)
-    </p>
-    <div class="tech-icons">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg" alt="Angular" title="Angular" />
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js" title="Node.js" />
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" title="JavaScript" />
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript" title="TypeScript" />
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" title="HTML5" />
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" title="CSS3" />
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java" title="Java" />
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" title="Git" />
+  <section class="section" id="experience">
+    <h2>Experience</h2>
+    <div class="grid">
+
+      <div class="exp-card">
+        <h3>Accenture</h3>
+        <p><strong>Project:</strong> MyWizard</p>
+        <p>
+          Internal automation platform used to calculate cost and FTEs for projects based on client requirements.
+        </p>
+        <p><strong>Tech Stack:</strong> Angular, TypeScript, Ag-Grid-Angular, Node.js, Serverless, Azure, SQL Server, Stored Procedures</p>
+      </div>
+
+      <div class="exp-card">
+        <h3>Infosys</h3>
+        <p><strong>Project:</strong> Airbus Chronos (Client: Airbus)</p>
+        <p>
+          Internal web application for Airbus to manage and track aircraft manufacturing production, including parts like wings and doors.
+        </p>
+        <p><strong>Tech Stack:</strong> Angular, TypeScript, Highcharts, Socket.IO, Angular Material, Node.js, SQL Server</p>
+      </div>
+
+      <div class="exp-card">
+        <h3>Coworks Solutions Pvt. Ltd</h3>
+        <ul>
+          <li><strong>Udyogasetu:</strong> Job portal and B2B/B2C marketplace for posting and managing jobs, services, and products.</li>
+          <li><strong>Barcode Generation System:</strong> Web app for barcode creation and tracking manufacturing and shipment processes. (Clients: Kirby Building System & Diqu Tech)</li>
+          <li><strong>Barcode Scanner:</strong> Mobile app for scanning and tracking barcodes.</li>
+        </ul>
+        <p><strong>Tech Stack:</strong> Angular, TypeScript, Highcharts, Socket.IO, Strapi, Angular Material, Node.js, MySQL, Java, AJAX, HTML, CSS, JavaScript</p>
+      </div>
+
     </div>
   </section>
 
-  <section id="projects" class="section">
-    <h2>Projects</h2>
-    <p><b>1. Udyogasetu (Coworks Solutions Pvt. Ltd)</b><br>
-      A public platform for job posting, training, and services — connecting job seekers and providers.
-    </p>
-    <p><b>2. Airbus Chronos (Infosys)</b><br>
-      Internal dashboard for Airbus to track KPI metrics and aircraft part production performance.
-    </p>
-    <p><b>3. MyWizard (Accenture)</b><br>
-      Internal Accenture tool for project cost and FTE estimation — enhancing project planning and decision-making.
-    </p>
+  <section class="section" id="skills">
+    <h2>Skills</h2>
+    <div class="skills-grid">
+      <div class="skill">Angular</div>
+      <div class="skill">TypeScript</div>
+      <div class="skill">JavaScript</div>
+      <div class="skill">HTML</div>
+      <div class="skill">CSS</div>
+      <div class="skill">Ag-Grid</div>
+      <div class="skill">Highcharts</div>
+      <div class="skill">Node.js</div>
+      <div class="skill">Serverless</div>
+      <div class="skill">Strapi</div>
+      <div class="skill">SQL Server</div>
+      <div class="skill">MySQL</div>
+      <div class="skill">Azure</div>
+      <div class="skill">Socket.IO</div>
+      <div class="skill">Angular Material</div>
+      <div class="skill">Visual Studio Code</div>
+      <div class="skill">Android Studio</div>
+      <div class="skill">Eclipse</div>
+      <div class="skill">Git & GitHub</div>
+    </div>
   </section>
 
-  <section id="contact" class="section">
+  <section class="section" id="contact">
     <h2>Contact</h2>
-    <p>📧 <b>Email:</b> chandan11kr5511@gmail.com<br>
-       📱 <b>Phone:</b> +91 9110022908<br>
-       🔗 <b>LinkedIn:</b> <a href="https://www.linkedin.com/in/chandan-kumar-paswan-592046135" target="_blank">linkedin.com/in/chandan-kumar-paswan-592046135</a>
-    </p>
+    <p><strong>Email:</strong> <a href="mailto:chandan11kr5511@gmail.com">chandan11kr5511@gmail.com</a></p>
+    <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/chandan-kumar-paswan-592046135" target="_blank">linkedin.com/in/chandan-kumar-paswan-592046135</a></p>
+    <p><strong>GitHub:</strong> <a href="https://github.com/chandan11kr" target="_blank">github.com/chandan11kr</a></p>
   </section>
 
   <footer>
-    <p>© 2025 Chandan Kumar Paswan. All Rights Reserved.</p>
+    <p>© 2025 Chandan Paswan. All rights reserved.</p>
   </footer>
 
-  <!-- Floating Theme Toggle -->
-  <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()">🌙</button>
+  <button class="theme-toggle" id="themeToggle" title="Toggle Theme">🌓</button>
 
   <script>
-    function toggleMenu() {
-      document.getElementById("sideMenu").classList.toggle("active");
+    const menuToggle = document.getElementById("menuToggle");
+    const navMenu = document.getElementById("navMenu");
+    const themeToggle = document.getElementById("themeToggle");
+
+    // --- Mobile Menu Toggle ---
+    menuToggle.addEventListener("click", () => {
+      navMenu.classList.toggle("active");
+    });
+
+    // --- Theme Handling ---
+    const userPreference = localStorage.getItem("theme");
+    const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+    if (userPreference === "dark" || (!userPreference && systemPrefersDark)) {
+      document.body.classList.add("dark-mode");
     }
 
-    const themeButton = document.getElementById("themeToggle");
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-
-    if (prefersDark) {
-      document.body.setAttribute("data-theme", "dark");
-      themeButton.textContent = "☀️";
-    }
-
-    function toggleTheme() {
-      const body = document.body;
-      body.style.animation = 'fadeIn 0.3s ease';
-      if (body.getAttribute("data-theme") === "dark") {
-        body.removeAttribute("data-theme");
-        themeButton.textContent = "🌙";
-      } else {
-        body.setAttribute("data-theme", "dark");
-        themeButton.textContent = "☀️";
-      }
-      setTimeout(() => { body.style.animation = ''; }, 300);
-    }
-
-    const sections = document.querySelectorAll('.section');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: 0.2 });
-    sections.forEach(sec => observer.observe(sec));
-
-    let lastScroll = 0;
-    window.addEventListener('scroll', () => {
-      const currentScroll = window.pageYOffset;
-      if (currentScroll > lastScroll && currentScroll > 200) {
-        themeButton.classList.add('hide');
-      } else {
-        themeButton.classList.remove('hide');
-      }
-      lastScroll = currentScroll;
+    themeToggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+      const isDark = document.body.classList.contains("dark-mode");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
     });
   </script>
 </body>
