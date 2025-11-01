@@ -1,458 +1,364 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Chandan Kumar Paswan — Software Developer</title>
-  <meta name="description" content="Portfolio of Chandan Kumar Paswan — Software Developer (5+ years). Angular · Node.js · SQL Server · Knex.js · Highcharts · ag-grid-angular" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chandan Kumar Paswan - Portfolio</title>
   <style>
-    :root{
-      --primary:#0078d7;
-      --primary-contrast:#005fa3;
-      --bg:#ffffff;
-      --text:#1f2937;
-      --card:#f6f9fc;
-      --muted:#6b7280;
-      --progress-light: #0078d7;
-      --progress-dark-start: #06b6d4;
-      --progress-dark-mid: #8b5cf6;
-      --progress-dark-end: #0078d7;
+    :root {
+      --bg: #ffffff;
+      --text: #1a1a1a;
+      --accent: #0078ff;
+      --card: #f7f9fc;
     }
-    [data-theme="dark"]{
-      --bg:#071026;
-      --text:#e6eef8;
-      --card:#0f1724;
-      --muted:#94a3b8;
+    [data-theme="dark"] {
+      --bg: #0e1623;
+      --text: #f5f7fa;
+      --accent: #3ba4ff;
+      --card: #1a2433;
     }
 
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:Inter, "Segoe UI", Roboto, system-ui, -apple-system, Arial;
-      background:var(--bg);
-      color:var(--text);
-      line-height:1.5;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      scroll-behavior:smooth;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: "Inter", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+      transition: background 0.3s, color 0.3s;
     }
 
-    /* thin animated progress - color will change via JS depending on theme */
-    #progress {
-      position:fixed; top:0; left:0; height:4px; width:0%;
-      background:var(--progress-light);
-      z-index:9999;
-      transition: width .16s linear, background .28s ease;
-      box-shadow: 0 0 10px rgba(0,0,0,0.06);
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: var(--card);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      z-index: 999;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+    }
+    header h1 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--accent);
     }
 
-    /* header */
-    header{
-      position:sticky; top:0; z-index:900;
-      display:flex; align-items:center; justify-content:space-between;
-      padding:12px 18px;
-      backdrop-filter: blur(6px);
-      background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.35));
-      border-bottom:1px solid rgba(0,0,0,0.04);
+    nav {
+      display: flex;
+      gap: 24px;
     }
-    [data-theme="dark"] header{
-      background: linear-gradient(180deg, rgba(5,10,20,0.6), rgba(5,10,20,0.35));
-      border-bottom:1px solid rgba(255,255,255,0.03);
+    nav a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 600;
+      transition: color 0.3s;
     }
-
-    .brand { display:flex; gap:12px; align-items:center }
-    .brand .name { font-weight:700; color:var(--primary); font-size:1rem }
-    .brand .meta { font-size:.88rem; color:var(--muted) }
-
-    /* desktop nav */
-    nav { display:flex; gap:18px; align-items:center }
-    nav a { color:var(--text); text-decoration:none; font-weight:600; font-size:.95rem; position:relative; padding:6px 2px }
-    nav a::after { content:''; position:absolute; left:0; bottom:-6px; height:2px; width:0%; background:var(--primary); transition:width .28s ease }
-    nav a:hover::after{ width:100% }
-
-    /* menu icon - only visible on mobile */
-    .menu-btn {
-      display:none;
-      background:transparent;
-      border:0;
-      font-size:1.5rem;
-      cursor:pointer;
-      color:var(--text);
+    nav a:hover {
+      color: var(--accent);
     }
 
-    main{ max-width:980px; margin:36px auto; padding:12px 18px 90px }
-
-    /* sections fade+slide-up */
-    section { margin-bottom:40px; opacity:0; transform:translateY(28px); transition:opacity .55s ease, transform .55s ease; }
-    section.visible { opacity:1; transform:translateY(0) }
-
-    h1{ margin:0; font-size:1.25rem }
-    h2{ color:var(--primary); margin:0 0 12px 0; font-size:1.05rem }
-    p{ margin:.5rem 0; color:var(--text) }
-
-    .card { background:var(--card); border-radius:10px; padding:16px; box-shadow:0 8px 22px rgba(2,6,23,0.04); border:1px solid rgba(0,0,0,0.03) }
-    [data-theme="dark"] .card { box-shadow:0 8px 22px rgba(2,6,23,0.6); border:1px solid rgba(255,255,255,0.02) }
-
-    .hero { display:flex; gap:18px; align-items:center; justify-content:space-between; flex-wrap:wrap }
-    .hero-left { max-width:64ch }
-    .meta-line{ color:var(--muted); font-weight:600; font-size:.92rem; margin-top:8px }
-
-    /* Experience grid */
-    .exp-grid { display:grid; gap:14px; grid-template-columns:1fr }
-    @media(min-width:860px){ .exp-grid{ grid-template-columns: 1fr 1fr } }
-
-    .small{ font-size:.88rem; color:var(--muted) }
-
-    /* skills */
-    .skills { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px }
-    .skill { background:transparent; border:1px solid rgba(0,0,0,0.06); padding:8px 10px; border-radius:8px; font-weight:600; color:var(--text) }
-    [data-theme="dark"] .skill{ border-color: rgba(255,255,255,0.04) }
-
-    /* contact grid cards */
-    .contact-grid { display:flex; gap:12px; flex-wrap:wrap; margin-top:12px }
-    .contact-card {
-      flex:1 1 calc(33% - 12px);
-      min-width:220px;
-      background:var(--card);
-      padding:12px 14px;
-      border-radius:10px;
-      display:flex; align-items:center; gap:12px;
-      box-shadow:0 8px 22px rgba(2,6,23,0.04);
-      transition:transform .24s ease, box-shadow .24s ease;
-      border:1px solid rgba(0,0,0,0.03);
-    }
-    .contact-card:hover{ transform:translateY(-6px); box-shadow:0 16px 38px rgba(2,6,23,0.06) }
-    .contact-emoji{ font-size:1.25rem }
-    .contact-meta a{ color:var(--primary); text-decoration:none; font-weight:700 }
-    .contact-meta .sub{ color:var(--muted); font-weight:600; font-size:.9rem }
-
-    @media(max-width:760px){
-      nav{ display:none }               /* hide desktop nav */
-      .menu-btn{ display:inline-block }/* show menu icon */
-      .contact-card{ flex:1 1 100% }   /* contact stack on mobile */
-      .exp-grid{ grid-template-columns:1fr }
+    .menu-icon {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
     }
 
-    /* floating theme toggle & backtop */
-    .floating {
-      position:fixed; right:18px; bottom:18px; z-index:999; width:46px; height:46px; border-radius:50%;
-      display:flex; align-items:center; justify-content:center; background:var(--primary); color:#fff; border:0; cursor:pointer;
-      box-shadow:0 12px 36px rgba(2,6,23,0.12); transition: transform .28s ease, opacity .28s ease;
+    main {
+      max-width: 960px;
+      margin: 100px auto;
+      padding: 0 20px;
     }
-    .floating.hide{ opacity:0; transform:translateY(8px); pointer-events:none }
 
-    .backtop {
-      position:fixed; right:18px; bottom:86px; z-index:998; width:44px; height:44px; border-radius:50%;
-      display:none; align-items:center; justify-content:center; background:var(--primary-contrast); color:#fff; border:0; cursor:pointer;
-      box-shadow:0 12px 36px rgba(2,6,23,0.12);
+    section {
+      margin-bottom: 60px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeSlideUp 0.8s forwards;
     }
-    .backtop.show{ display:flex }
+    @keyframes fadeSlideUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-    footer{ padding:28px 18px; text-align:center; color:var(--muted); border-top:1px solid rgba(0,0,0,0.04) }
-    [data-theme="dark"] footer{ border-top:1px solid rgba(255,255,255,0.02) }
+    h2 {
+      font-size: 1.75rem;
+      margin-bottom: 12px;
+      color: var(--accent);
+    }
 
-    /* ---------- Mobile slide-in menu & overlay ---------- */
+    .card {
+      background: var(--card);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+      margin-top: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: var(--text);
+      border-top: 1px solid rgba(0,0,0,0.1);
+    }
+
+    /* Scroll progress bar */
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: var(--accent);
+      width: 0%;
+      z-index: 1000;
+      transition: width 0.15s linear;
+    }
+
+    /* Back to top button */
+    #backToTop {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      font-size: 20px;
+      cursor: pointer;
+      display: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 998;
+    }
+    #backToTop.show {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* mobile slide-in and overlay */
     .mobile-overlay {
-      position:fixed; inset:0; background: rgba(2,6,23,0.45); opacity:0; pointer-events:none; transition: opacity .28s ease; z-index:995;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7); /* 70% semi-transparent dark overlay */
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 995;
     }
-    .mobile-overlay.show { opacity:1; pointer-events:auto }
+    .mobile-overlay.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
 
     .mobile-sidebar {
-      position:fixed; top:0; left:0; height:100vh; width:70vw; max-width:420px;
-      background: linear-gradient(180deg, rgba(3,8,18,0.95), rgba(3,8,18,0.98));
-      transform: translateX(-120%); transition: transform .32s cubic-bezier(.2,.9,.2,1);
-      z-index:996; padding:28px 18px; color:#fff; display:flex; flex-direction:column; gap:12px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 70vw;
+      max-width: 420px;
+      background: var(--card);
+      color: var(--text);
+      transform: translateX(-120%);
+      transition: transform 0.32s cubic-bezier(.2,.9,.2,1);
+      z-index: 996;
+      padding: 28px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: 6px 0 25px rgba(0,0,0,0.25);
+      border-right: 1px solid rgba(0,0,0,0.05);
     }
-    .mobile-sidebar.open { transform: translateX(0) }
-    .mobile-sidebar a { color:#fff; text-decoration:none; font-weight:700; padding:10px 6px; display:block; border-radius:6px }
-    .mobile-sidebar .close-btn { align-self:flex-end; font-size:1.2rem; background:transparent; border:0; color:#fff; cursor:pointer }
+    [data-theme="dark"] .mobile-sidebar {
+      background: #101826;
+      color: #ffffff;
+      border-right: 1px solid rgba(255,255,255,0.1);
+    }
+    .mobile-sidebar.open {
+      transform: translateX(0);
+    }
+    .mobile-sidebar a {
+      color: inherit;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 10px 8px;
+      border-radius: 6px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .mobile-sidebar a:hover {
+      background: rgba(0,0,0,0.05);
+    }
+    [data-theme="dark"] .mobile-sidebar a:hover {
+      background: rgba(255,255,255,0.1);
+    }
+    .mobile-sidebar .close-btn {
+      align-self: flex-end;
+      font-size: 1.2rem;
+      background: transparent;
+      border: 0;
+      color: inherit;
+      cursor: pointer;
+    }
 
-    @media(min-width:761px){
-      .mobile-overlay, .mobile-sidebar { display:none } /* hide mobile UI on desktop */
+    @media (max-width: 760px) {
+      nav {
+        display: none;
+      }
+      .menu-icon {
+        display: block;
+      }
     }
   </style>
 </head>
 <body>
+  <div id="progress-bar"></div>
 
-  <!-- progress -->
-  <div id="progress" aria-hidden="true"></div>
-
-  <!-- header -->
   <header>
-    <div class="brand">
-      <div>
-        <div class="name">Chandan Kumar Paswan</div>
-        <div class="meta">Software Developer · <span class="small">5+ years</span></div>
-      </div>
-    </div>
-
-    <nav aria-label="Main navigation">
+    <h1>Chandan Kumar Paswan</h1>
+    <nav>
       <a href="#about">About</a>
       <a href="#experience">Experience</a>
       <a href="#skills">Skills</a>
       <a href="#contact">Contact</a>
     </nav>
-
-    <!-- menu icon for mobile only -->
-    <button class="menu-btn" id="openMenu" aria-label="Open menu">☰</button>
+    <div class="menu-icon" id="menu-icon">☰</div>
   </header>
 
-  <!-- mobile overlay & sidebar -->
-  <div id="overlay" class="mobile-overlay" tabindex="-1" aria-hidden="true"></div>
-  <aside id="sidebar" class="mobile-sidebar" aria-hidden="true" role="dialog" aria-label="Mobile menu">
-    <button class="close-btn" id="closeMenu" aria-label="Close menu">✕</button>
-    <nav style="margin-top:6px">
-      <a href="#about" data-close>About</a>
-      <a href="#experience" data-close>Experience</a>
-      <a href="#skills" data-close>Skills</a>
-      <a href="#contact" data-close>Contact</a>
-    </nav>
-  </aside>
+  <!-- Mobile sidebar -->
+  <div class="mobile-overlay" id="mobile-overlay"></div>
+  <div class="mobile-sidebar" id="mobile-sidebar">
+    <button class="close-btn" id="close-btn">✕</button>
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </div>
 
   <main>
-    <!-- About -->
-    <section id="about" class="card" aria-labelledby="about-heading">
-      <div class="hero">
-        <div class="hero-left">
-          <h1 id="about-heading">Software Developer — 5+ years</h1>
-          <p class="meta-line">I’m a <strong>Software Developer with 5 years of professional experience</strong> designing and building scalable, high-performance web applications. I specialize in <strong>Angular</strong>, <strong>Node.js</strong>, <strong>TypeScript</strong>, and <strong>SQL Server</strong>, and I focus on clean, maintainable code, high-performing UI, and pragmatic backend design.</p>
-
-          <div style="margin-top:14px">
-            <div class="small">Industries:</div>
-            <div class="small" style="margin-top:6px">Automation · Aerospace · Manufacturing</div>
-          </div>
-        </div>
-
-        <div style="min-width:220px; text-align:right">
-          <div class="small">Location</div>
-          <div style="margin-top:6px; font-weight:700">Bangalore, Karnataka</div>
-          <div style="margin-top:12px" class="small">Preferred role: Software Developer</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Experience -->
-    <section id="experience" aria-labelledby="exp-heading">
-      <h2 id="exp-heading">Professional Experience</h2>
-      <div class="exp-grid">
-        <div class="card">
-          <h3>Accenture — Software Developer</h3>
-          <div class="small">Jul 2024 — Present</div>
-          <p><strong>Project:</strong> MyWizard (internal automation & estimation tool)</p>
-          <p>Developed automation and workflow modules using <strong>ag-grid-angular</strong>, <strong>Serverless</strong>, <strong>Azure</strong>, <strong>Node.js</strong>, <strong>SQL Server</strong>, and <strong>Angular</strong>. Focused on building reusable components, performance optimization, and accurate cost/FTE calculations for project estimation.</p>
-          <p class="small"><strong>Tech Stack:</strong> Angular · ag-grid-angular · Node.js · SQL Server · Serverless · Azure</p>
-        </div>
-
-        <div class="card">
-          <h3>Infosys — Software Developer</h3>
-          <div class="small">Oct 2022 — Jul 2024</div>
-          <p><strong>Project:</strong> Airbus Chronos (Client: Airbus)</p>
-          <p>Contributed to an internal application used by Airbus for production tracking and dashboards. Implemented real-time updates and data visualizations, and resolved long-standing performance issues to improve responsiveness and reliability.</p>
-          <p class="small"><strong>Tech Stack:</strong> Angular · Node.js · SQL Server · TypeScript · Highcharts · Socket.io · Angular Material</p>
-        </div>
-
-        <div class="card">
-          <h3>Coworks Solutions Pvt. Ltd — Software Developer</h3>
-          <div class="small">Dec 2020 — Oct 2022</div>
-          <p><strong>Projects:</strong></p>
-          <ul style="margin-left:18px;">
-            <li><strong>Udyogasetu</strong> — public B2B/B2C marketplace & job portal (Ag-Grid for admin dashboards).</li>
-            <li><strong>Barcode Generation (Web)</strong> — back-office system to generate barcodes for raw materials and final products used in manufacturing & shipment. (Backend uses SQL Server)</li>
-            <li><strong>Barcode Scanner (Mobile)</strong> — mobile app to scan barcodes and verify manufacturing workflow. (Backend supports SQL Server)</li>
-          </ul>
-          <p class="small"><strong>Tech Stack:</strong> Java · AJAX · HTML · CSS · JavaScript · Knex.js · Highcharts · Strapi (customization) · MySQL (Udyogasetu) · SQL Server (barcode systems)</p>
-        </div>
-
-        <div class="card">
-          <h3>Udyogasetu — Full Stack / Public</h3>
-          <div class="small">(Public Platform)</div>
-          <p>Built a job marketplace platform where users can post jobs, trainings, services and products (B2B & B2C). Implemented admin dashboards using <strong>ag-grid-angular</strong> and backend APIs on Node.js with SQL Server.</p>
-          <p class="small"><strong>Tech Stack:</strong> Angular · ag-grid-angular · Node.js · TypeScript · SQL Server</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Skills -->
-    <section id="skills" aria-labelledby="skills-heading">
-      <h2 id="skills-heading">Technical Skills</h2>
+    <section id="about">
+      <h2>About Me</h2>
       <div class="card">
-        <div class="small"><strong>Frontend</strong></div>
-        <div class="skills" aria-hidden="true">
-          <div class="skill">Angular</div>
-          <div class="skill">TypeScript</div>
-          <div class="skill">JavaScript (ES6+)</div>
-          <div class="skill">HTML5</div>
-          <div class="skill">CSS3 / AJAX</div>
-          <div class="skill">ag-grid-angular</div>
-          <div class="skill">Highcharts</div>
-        </div>
-
-        <div style="margin-top:12px" class="small"><strong>Backend & DB</strong></div>
-        <div class="skills" aria-hidden="true">
-          <div class="skill">Node.js</div>
-          <div class="skill">Knex.js (Query Builder)</div>
-          <div class="skill">SQL Server (Stored Procedures)</div>
-          <div class="skill">MySQL</div>
-          <div class="skill">Strapi (customization)</div>
-        </div>
-
-        <div style="margin-top:12px" class="small"><strong>Cloud & Tools</strong></div>
-        <div class="skills">
-          <div class="skill">Serverless</div>
-          <div class="skill">Azure</div>
-          <div class="skill">Socket.io</div>
-          <div class="skill">VS Code</div>
-          <div class="skill">Android Studio</div>
-          <div class="skill">Eclipse</div>
-        </div>
+        <p>
+          I'm a Software Developer with <strong>5 years of professional experience</strong> specializing in
+          front-end and back-end development using <strong>Angular, Node.js, SQL Server, and Knex.js</strong>.
+          I enjoy building scalable and efficient applications with a focus on clean architecture and
+          maintainable code. Passionate about learning, problem-solving, and optimizing workflows through
+          automation and smart solutions.
+        </p>
       </div>
     </section>
 
-    <!-- Contact -->
-    <section id="contact" aria-labelledby="contact-heading">
-      <h2 id="contact-heading">Contact</h2>
-      <div class="contact-grid" role="list">
-        <article class="contact-card" role="listitem" aria-label="Email">
-          <div class="contact-emoji">📧</div>
-          <div class="contact-meta">
-            <div class="sub">Email</div>
-            <a href="mailto:chandan11kr5511@gmail.com">chandan11kr5511@gmail.com</a>
-          </div>
-        </article>
+    <section id="experience">
+      <h2>Experience</h2>
 
-        <article class="contact-card" role="listitem" aria-label="LinkedIn">
-          <div class="contact-emoji">🔗</div>
-          <div class="contact-meta">
-            <div class="sub">LinkedIn</div>
-            <a href="https://www.linkedin.com/in/chandan-kumar-paswan-592046135" target="_blank" rel="noopener">linkedin.com/in/chandan-kumar-paswan-592046135</a>
-          </div>
-        </article>
+      <div class="card">
+        <h3>Accenture (Software Engineer)</h3>
+        <p><strong>Tech Stack:</strong> Angular, Ag-Grid-Angular, Node.js, Serverless, Azure, SQL Server</p>
+        <p>
+          Developed automation and workflow modules leveraging <strong>Ag-Grid-Angular</strong>,
+          <strong>Serverless</strong>, <strong>Azure</strong>, and <strong>Node.js</strong>.
+          Focused on optimizing data-driven workflows and ensuring smooth integration between
+          front-end and back-end systems.
+        </p>
+      </div>
 
-        <article class="contact-card" role="listitem" aria-label="GitHub">
-          <div class="contact-emoji">💻</div>
-          <div class="contact-meta">
-            <div class="sub">GitHub</div>
-            <a href="https://github.com/chandan11kr" target="_blank" rel="noopener">github.com/chandan11kr</a>
-          </div>
-        </article>
+      <div class="card">
+        <h3>Infosys (System Engineer)</h3>
+        <p><strong>Tech Stack:</strong> Angular, Node.js, SQL Server</p>
+        <p>
+          Worked on enterprise-level applications with modular architecture and efficient data
+          handling. Enhanced existing features and contributed to high-performance front-end modules.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Coworks Solutions Pvt. Ltd (Software Developer)</h3>
+        <p><strong>Tech Stack:</strong> Knex.js, Highcharts, Strapi, MySQL, SQL Server, Ag-Grid-Angular</p>
+        <p>
+          Developed solutions for <strong>Udyogasetu</strong> using Ag-Grid-Angular and integrated
+          barcode generation and scanning modules using SQL Server. Customized Strapi CMS and built
+          visual analytics dashboards using Highcharts.
+        </p>
+      </div>
+    </section>
+
+    <section id="skills">
+      <h2>Skills</h2>
+      <div class="card">
+        <p>
+          <strong>Frontend:</strong> Angular, HTML, CSS, TypeScript, Ag-Grid-Angular<br />
+          <strong>Backend:</strong> Node.js, Express, Knex.js, Strapi<br />
+          <strong>Database:</strong> SQL Server, MySQL<br />
+          <strong>Tools & Platforms:</strong> Azure, Serverless, Git, Postman
+        </p>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <div class="card">
+        <p>📧 <a href="mailto:chanan11kr5511@gmail.com">chanan11kr5511@gmail.com</a></p>
+        <p>🔗 <a href="https://www.linkedin.com/in/chandan-kumar-paswan-592046135" target="_blank">LinkedIn Profile</a></p>
+        <p>💻 <a href="https://github.com/chandan11kr" target="_blank">GitHub Profile</a></p>
       </div>
     </section>
   </main>
 
-  <footer>© 2025 Chandan Kumar Paswan — Software Developer.</footer>
+  <footer>
+    <p>© 2025 Chandan Kumar Paswan. All rights reserved.</p>
+  </footer>
 
-  <!-- theme toggle -->
-  <button id="themeToggle" class="floating" aria-label="Toggle theme">🌙</button>
-
-  <!-- back to top -->
-  <button id="backTop" class="backtop" aria-label="Back to top">↑</button>
+  <button id="backToTop">↑</button>
 
   <script>
-    /* -------------------------
-       Theme (persisted)
-       ------------------------- */
-    const body = document.body;
-    const themeToggle = document.getElementById('themeToggle');
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') body.setAttribute('data-theme', 'dark');
-    else body.removeAttribute('data-theme');
-
-    function updateToggle() {
-      themeToggle.textContent = body.hasAttribute('data-theme') ? '☀️' : '🌙';
-    }
-    updateToggle();
-
-    function updateProgressColor() {
-      const progress = document.getElementById('progress');
-      if (body.hasAttribute('data-theme')) {
-        // dark animated-ish gradient (static color for CSS background via JS)
-        progress.style.background = 'linear-gradient(90deg, var(--progress-dark-start), var(--progress-dark-mid), var(--progress-dark-end))';
-        progress.style.boxShadow = '0 0 12px rgba(99,102,241,0.16)';
-      } else {
-        progress.style.background = getComputedStyle(document.documentElement).getPropertyValue('--progress-light') || '#0078d7';
-        progress.style.boxShadow = '0 0 6px rgba(0,120,215,0.12)';
-      }
-    }
-    updateProgressColor();
-
-    themeToggle.addEventListener('click', () => {
-      if (body.hasAttribute('data-theme')) {
-        body.removeAttribute('data-theme');
-        localStorage.setItem('theme','light');
-      } else {
-        body.setAttribute('data-theme','dark');
-        localStorage.setItem('theme','dark');
-      }
-      updateToggle();
-      updateProgressColor();
+    // Scroll progress bar
+    const progressBar = document.getElementById("progress-bar");
+    window.addEventListener("scroll", () => {
+      const scrollTop = document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      progressBar.style.width = `${(scrollTop / height) * 100}%`;
     });
 
-    /* -------------------------
-       Mobile menu (slide-in) behavior
-       ------------------------- */
-    const openBtn = document.getElementById('openMenu');
-    const closeBtn = document.getElementById('closeMenu');
-    const overlay = document.getElementById('overlay');
-    const sidebar = document.getElementById('sidebar');
+    // Back to top button
+    const backToTop = document.getElementById("backToTop");
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > window.innerHeight) backToTop.classList.add("show");
+      else backToTop.classList.remove("show");
+    });
+    backToTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 
-    function openMenu() {
-      overlay.classList.add('show');
-      sidebar.classList.add('open');
-      overlay.setAttribute('aria-hidden','false');
-      sidebar.setAttribute('aria-hidden','false');
-      // prevent page scroll behind menu
-      document.body.style.overflow = 'hidden';
-    }
-    function closeMenu() {
-      overlay.classList.remove('show');
-      sidebar.classList.remove('open');
-      overlay.setAttribute('aria-hidden','true');
-      sidebar.setAttribute('aria-hidden','true');
-      document.body.style.overflow = '';
+    // Mobile menu toggle
+    const menuIcon = document.getElementById("menu-icon");
+    const mobileSidebar = document.getElementById("mobile-sidebar");
+    const overlay = document.getElementById("mobile-overlay");
+    const closeBtn = document.getElementById("close-btn");
+
+    function toggleMenu(open) {
+      mobileSidebar.classList.toggle("open", open);
+      overlay.classList.toggle("show", open);
     }
 
-    openBtn && openBtn.addEventListener('click', openMenu);
-    closeBtn && closeBtn.addEventListener('click', closeMenu);
+    menuIcon.addEventListener("click", () => toggleMenu(true));
+    closeBtn.addEventListener("click", () => toggleMenu(false));
+    overlay.addEventListener("click", () => toggleMenu(false));
 
-    // close when clicking overlay (outside)
-    overlay.addEventListener('click', closeMenu);
-
-    // close when clicking any link inside sidebar (data-close)
-    sidebar.querySelectorAll('a[data-close]').forEach(a => {
-      a.addEventListener('click', () => {
-        // small delay allows browser to jump to anchor before closing
-        closeMenu();
-      });
+    document.querySelectorAll(".mobile-sidebar a").forEach(link => {
+      link.addEventListener("click", () => toggleMenu(false));
     });
-
-    // handle escape key to close
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeMenu();
-    });
-
-    /* -------------------------
-       Intersection Observer for fade+slide
-       ------------------------- */
-    const sections = document.querySelectorAll('section');
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: 0.15 });
-    sections.forEach(s => io.observe(s));
-
-    /* -------------------------
-       Progress bar, back-to-top, theme-toggle hide/show
-       ------------------------- */
-    const progress = document.getElementById('progress');
-    const backTop = document.getElementById('backTop');
-    let lastScroll = window.scrollY;
-    function onScroll() {
-      const scrolled = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const pct = docHeight > 0 ? (scrolled / docHeight) * 100 : 0;
-      progress.style.width = pct + '%';
-
-      // back-to-top appears only when page scrollable and scrolled past one viewport (80%)
-      if (document.body.scrollHeight > window.innerHeight && scrolled
+  </script>
+</body>
+</html>
