@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -7,103 +7,109 @@
   <meta name="description" content="Portfolio of Chandan Kumar Paswan — Software Developer (5+ years). Angular · Node.js · SQL Server · Knex.js · Highcharts · ag-grid-angular" />
   <style>
     :root{
-      --primary: #0078d7;
-      --primary-contrast: #005fa3;
-      --bg: #ffffff;
-      --text: #222;
-      --card: #f6f9fc;
-      --muted: #6b7280;
+      --primary:#0078d7;
+      --primary-contrast:#005fa3;
+      --bg:#ffffff;
+      --text:#1f2937;
+      --card:#f6f9fc;
+      --muted:#6b7280;
+      --progress-light: #0078d7;
+      --progress-dark-start: #06b6d4;
+      --progress-dark-mid: #8b5cf6;
+      --progress-dark-end: #0078d7;
     }
     [data-theme="dark"]{
-      --bg: #0b1020;
-      --text: #e6eef8;
-      --card: #121421;
-      --muted: #94a3b8;
+      --bg:#071026;
+      --text:#e6eef8;
+      --card:#0f1724;
+      --muted:#94a3b8;
     }
 
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;
-      font-family:Inter, "Segoe UI", Roboto, system-ui, -apple-system, "Helvetica Neue", Arial;
+      font-family:Inter, "Segoe UI", Roboto, system-ui, -apple-system, Arial;
       background:var(--bg);
       color:var(--text);
+      line-height:1.5;
       -webkit-font-smoothing:antialiased;
       -moz-osx-font-smoothing:grayscale;
-      line-height:1.5;
       scroll-behavior:smooth;
     }
 
-    /* progress bar (thin) */
+    /* thin animated progress - color will change via JS depending on theme */
     #progress {
       position:fixed; top:0; left:0; height:4px; width:0%;
-      background:var(--primary);
+      background:var(--progress-light);
       z-index:9999;
-      transition: width .18s linear, background .3s ease;
+      transition: width .16s linear, background .28s ease;
+      box-shadow: 0 0 10px rgba(0,0,0,0.06);
     }
 
+    /* header */
     header{
       position:sticky; top:0; z-index:900;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:12px 18px;
       backdrop-filter: blur(6px);
       background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.35));
-      border-bottom:1px solid rgba(0,0,0,0.06);
-      display:flex; align-items:center; justify-content:space-between;
-      padding:14px 20px;
+      border-bottom:1px solid rgba(0,0,0,0.04);
     }
     [data-theme="dark"] header{
-      background: linear-gradient(180deg, rgba(12,16,28,0.6), rgba(12,16,28,0.35));
+      background: linear-gradient(180deg, rgba(5,10,20,0.6), rgba(5,10,20,0.35));
       border-bottom:1px solid rgba(255,255,255,0.03);
     }
 
-    .brand{
-      display:flex; align-items:center; gap:12px;
-    }
-    .brand .name { font-weight:700; color:var(--primary); font-size:1.05rem; }
-    .brand .meta { font-size:.86rem; color:var(--muted) }
+    .brand { display:flex; gap:12px; align-items:center }
+    .brand .name { font-weight:700; color:var(--primary); font-size:1rem }
+    .brand .meta { font-size:.88rem; color:var(--muted) }
 
-    nav{ display:flex; gap:18px; align-items:center }
-    nav a{
-      color:var(--text); text-decoration:none; font-weight:600; font-size:.95rem; position:relative;
-      padding:6px 2px;
-    }
-    nav a::after{
-      content:''; position:absolute; left:0; bottom:-6px; height:2px; width:0%;
-      background:var(--primary); transition:width .28s ease;
-    }
+    /* desktop nav */
+    nav { display:flex; gap:18px; align-items:center }
+    nav a { color:var(--text); text-decoration:none; font-weight:600; font-size:.95rem; position:relative; padding:6px 2px }
+    nav a::after { content:''; position:absolute; left:0; bottom:-6px; height:2px; width:0%; background:var(--primary); transition:width .28s ease }
     nav a:hover::after{ width:100% }
 
-    .menu-btn{ display:none; font-size:1.45rem; background:transparent; border:0; cursor:pointer; color:var(--text) }
+    /* menu icon - only visible on mobile */
+    .menu-btn {
+      display:none;
+      background:transparent;
+      border:0;
+      font-size:1.5rem;
+      cursor:pointer;
+      color:var(--text);
+    }
 
-    main{ max-width:980px; margin:36px auto; padding:12px 20px 80px }
+    main{ max-width:980px; margin:36px auto; padding:12px 18px 90px }
 
-    section{ margin-bottom:40px; opacity:0; transform:translateY(26px); transition:opacity .6s ease, transform .6s ease; }
-    section.visible{ opacity:1; transform:translateY(0) }
+    /* sections fade+slide-up */
+    section { margin-bottom:40px; opacity:0; transform:translateY(28px); transition:opacity .55s ease, transform .55s ease; }
+    section.visible { opacity:1; transform:translateY(0) }
 
-    h1{ margin:0; font-size:1.3rem }
+    h1{ margin:0; font-size:1.25rem }
     h2{ color:var(--primary); margin:0 0 12px 0; font-size:1.05rem }
     p{ margin:.5rem 0; color:var(--text) }
 
-    .card { background:var(--card); border-radius:10px; padding:16px; box-shadow:0 6px 18px rgba(13,20,30,0.03); border:1px solid rgba(0,0,0,0.03) }
-    [data-theme="dark"] .card { box-shadow: 0 6px 18px rgba(2,6,23,0.6); border:1px solid rgba(255,255,255,0.02) }
+    .card { background:var(--card); border-radius:10px; padding:16px; box-shadow:0 8px 22px rgba(2,6,23,0.04); border:1px solid rgba(0,0,0,0.03) }
+    [data-theme="dark"] .card { box-shadow:0 8px 22px rgba(2,6,23,0.6); border:1px solid rgba(255,255,255,0.02) }
 
-    /* About */
     .hero { display:flex; gap:18px; align-items:center; justify-content:space-between; flex-wrap:wrap }
     .hero-left { max-width:64ch }
-    .badge { display:inline-block; padding:6px 10px; border-radius:999px; font-weight:700; color:#fff; background:var(--primary); margin-top:8px; font-size:.85rem }
+    .meta-line{ color:var(--muted); font-weight:600; font-size:.92rem; margin-top:8px }
 
-    /* Experience */
-    .exp-grid{ display:grid; gap:14px; grid-template-columns:1fr }
-    @media(min-width:860px){ .exp-grid{ grid-template-columns: 1fr 1fr; } }
+    /* Experience grid */
+    .exp-grid { display:grid; gap:14px; grid-template-columns:1fr }
+    @media(min-width:860px){ .exp-grid{ grid-template-columns: 1fr 1fr } }
 
-    .exp-item h3{ margin:0; font-size:.98rem; color:var(--text) }
-    .small { font-size:.88rem; color:var(--muted) }
+    .small{ font-size:.88rem; color:var(--muted) }
 
-    /* Skills */
-    .skills { display:flex; flex-wrap:wrap; gap:10px; margin-top:8px }
+    /* skills */
+    .skills { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px }
     .skill { background:transparent; border:1px solid rgba(0,0,0,0.06); padding:8px 10px; border-radius:8px; font-weight:600; color:var(--text) }
     [data-theme="dark"] .skill{ border-color: rgba(255,255,255,0.04) }
 
-    /* contact responsive card layout */
+    /* contact grid cards */
     .contact-grid { display:flex; gap:12px; flex-wrap:wrap; margin-top:12px }
     .contact-card {
       flex:1 1 calc(33% - 12px);
@@ -112,54 +118,67 @@
       padding:12px 14px;
       border-radius:10px;
       display:flex; align-items:center; gap:12px;
-      box-shadow:0 6px 18px rgba(13,20,30,0.03);
+      box-shadow:0 8px 22px rgba(2,6,23,0.04);
       transition:transform .24s ease, box-shadow .24s ease;
-      border:1px solid rgba(0,0,0,0.03)
+      border:1px solid rgba(0,0,0,0.03);
     }
-    .contact-card:hover{ transform:translateY(-6px); box-shadow:0 12px 28px rgba(13,20,30,0.06) }
+    .contact-card:hover{ transform:translateY(-6px); box-shadow:0 16px 38px rgba(2,6,23,0.06) }
     .contact-emoji{ font-size:1.25rem }
-    .contact-meta { display:flex;flex-direction:column; gap:4px; }
     .contact-meta a{ color:var(--primary); text-decoration:none; font-weight:700 }
     .contact-meta .sub{ color:var(--muted); font-weight:600; font-size:.9rem }
 
     @media(max-width:760px){
-      header{ padding:12px 14px }
-      nav{ display:none }
-      .menu-btn{ display:inline-block }
-      .contact-card{ flex:1 1 100% }
+      nav{ display:none }               /* hide desktop nav */
+      .menu-btn{ display:inline-block }/* show menu icon */
+      .contact-card{ flex:1 1 100% }   /* contact stack on mobile */
       .exp-grid{ grid-template-columns:1fr }
     }
 
-    /* theme toggle & back to top */
+    /* floating theme toggle & backtop */
     .floating {
       position:fixed; right:18px; bottom:18px; z-index:999; width:46px; height:46px; border-radius:50%;
       display:flex; align-items:center; justify-content:center; background:var(--primary); color:#fff; border:0; cursor:pointer;
-      box-shadow:0 8px 28px rgba(2,6,23,0.12);
-      transition: transform .28s ease, opacity .28s ease;
+      box-shadow:0 12px 36px rgba(2,6,23,0.12); transition: transform .28s ease, opacity .28s ease;
     }
     .floating.hide{ opacity:0; transform:translateY(8px); pointer-events:none }
 
     .backtop {
-      position:fixed; right:18px; bottom:82px; z-index:998; width:44px; height:44px; border-radius:50%;
+      position:fixed; right:18px; bottom:86px; z-index:998; width:44px; height:44px; border-radius:50%;
       display:none; align-items:center; justify-content:center; background:var(--primary-contrast); color:#fff; border:0; cursor:pointer;
-      box-shadow:0 8px 28px rgba(2,6,23,0.12);
-      transition: opacity .28s ease;
+      box-shadow:0 12px 36px rgba(2,6,23,0.12);
     }
     .backtop.show{ display:flex }
 
-    /* small responsiveness */
-    .meta-line{ color:var(--muted); font-weight:600; font-size:.92rem; margin-top:6px }
-
-    footer{ padding:32px 20px; text-align:center; color:var(--muted); border-top:1px solid rgba(0,0,0,0.04) }
+    footer{ padding:28px 18px; text-align:center; color:var(--muted); border-top:1px solid rgba(0,0,0,0.04) }
     [data-theme="dark"] footer{ border-top:1px solid rgba(255,255,255,0.02) }
 
+    /* ---------- Mobile slide-in menu & overlay ---------- */
+    .mobile-overlay {
+      position:fixed; inset:0; background: rgba(2,6,23,0.45); opacity:0; pointer-events:none; transition: opacity .28s ease; z-index:995;
+    }
+    .mobile-overlay.show { opacity:1; pointer-events:auto }
+
+    .mobile-sidebar {
+      position:fixed; top:0; left:0; height:100vh; width:70vw; max-width:420px;
+      background: linear-gradient(180deg, rgba(3,8,18,0.95), rgba(3,8,18,0.98));
+      transform: translateX(-120%); transition: transform .32s cubic-bezier(.2,.9,.2,1);
+      z-index:996; padding:28px 18px; color:#fff; display:flex; flex-direction:column; gap:12px;
+    }
+    .mobile-sidebar.open { transform: translateX(0) }
+    .mobile-sidebar a { color:#fff; text-decoration:none; font-weight:700; padding:10px 6px; display:block; border-radius:6px }
+    .mobile-sidebar .close-btn { align-self:flex-end; font-size:1.2rem; background:transparent; border:0; color:#fff; cursor:pointer }
+
+    @media(min-width:761px){
+      .mobile-overlay, .mobile-sidebar { display:none } /* hide mobile UI on desktop */
+    }
   </style>
 </head>
 <body>
 
-  <!-- thin progress -->
-  <div id="progress"></div>
+  <!-- progress -->
+  <div id="progress" aria-hidden="true"></div>
 
+  <!-- header -->
   <header>
     <div class="brand">
       <div>
@@ -175,18 +194,29 @@
       <a href="#contact">Contact</a>
     </nav>
 
-    <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+    <!-- menu icon for mobile only -->
+    <button class="menu-btn" id="openMenu" aria-label="Open menu">☰</button>
   </header>
+
+  <!-- mobile overlay & sidebar -->
+  <div id="overlay" class="mobile-overlay" tabindex="-1" aria-hidden="true"></div>
+  <aside id="sidebar" class="mobile-sidebar" aria-hidden="true" role="dialog" aria-label="Mobile menu">
+    <button class="close-btn" id="closeMenu" aria-label="Close menu">✕</button>
+    <nav style="margin-top:6px">
+      <a href="#about" data-close>About</a>
+      <a href="#experience" data-close>Experience</a>
+      <a href="#skills" data-close>Skills</a>
+      <a href="#contact" data-close>Contact</a>
+    </nav>
+  </aside>
 
   <main>
     <!-- About -->
-    <section id="about" class="card">
+    <section id="about" class="card" aria-labelledby="about-heading">
       <div class="hero">
         <div class="hero-left">
-          <h1>Software Developer — 5+ years</h1>
+          <h1 id="about-heading">Software Developer — 5+ years</h1>
           <p class="meta-line">I’m a <strong>Software Developer with 5 years of professional experience</strong> designing and building scalable, high-performance web applications. I specialize in <strong>Angular</strong>, <strong>Node.js</strong>, <strong>TypeScript</strong>, and <strong>SQL Server</strong>, and I focus on clean, maintainable code, high-performing UI, and pragmatic backend design.</p>
-
-          <span class="badge">Available for opportunities</span>
 
           <div style="margin-top:14px">
             <div class="small">Industries:</div>
@@ -203,10 +233,10 @@
     </section>
 
     <!-- Experience -->
-    <section id="experience">
-      <h2>Professional Experience</h2>
+    <section id="experience" aria-labelledby="exp-heading">
+      <h2 id="exp-heading">Professional Experience</h2>
       <div class="exp-grid">
-        <div class="card exp-item">
+        <div class="card">
           <h3>Accenture — Software Developer</h3>
           <div class="small">Jul 2024 — Present</div>
           <p><strong>Project:</strong> MyWizard (internal automation & estimation tool)</p>
@@ -214,7 +244,7 @@
           <p class="small"><strong>Tech Stack:</strong> Angular · ag-grid-angular · Node.js · SQL Server · Serverless · Azure</p>
         </div>
 
-        <div class="card exp-item">
+        <div class="card">
           <h3>Infosys — Software Developer</h3>
           <div class="small">Oct 2022 — Jul 2024</div>
           <p><strong>Project:</strong> Airbus Chronos (Client: Airbus)</p>
@@ -222,19 +252,19 @@
           <p class="small"><strong>Tech Stack:</strong> Angular · Node.js · SQL Server · TypeScript · Highcharts · Socket.io · Angular Material</p>
         </div>
 
-        <div class="card exp-item">
+        <div class="card">
           <h3>Coworks Solutions Pvt. Ltd — Software Developer</h3>
           <div class="small">Dec 2020 — Oct 2022</div>
           <p><strong>Projects:</strong></p>
           <ul style="margin-left:18px;">
-            <li><strong>Udyogasetu</strong> — public B2B/B2C marketplace & job portal (Ag-Grid integration for admin dashboards).</li>
+            <li><strong>Udyogasetu</strong> — public B2B/B2C marketplace & job portal (Ag-Grid for admin dashboards).</li>
             <li><strong>Barcode Generation (Web)</strong> — back-office system to generate barcodes for raw materials and final products used in manufacturing & shipment. (Backend uses SQL Server)</li>
             <li><strong>Barcode Scanner (Mobile)</strong> — mobile app to scan barcodes and verify manufacturing workflow. (Backend supports SQL Server)</li>
           </ul>
           <p class="small"><strong>Tech Stack:</strong> Java · AJAX · HTML · CSS · JavaScript · Knex.js · Highcharts · Strapi (customization) · MySQL (Udyogasetu) · SQL Server (barcode systems)</p>
         </div>
 
-        <div class="card exp-item">
+        <div class="card">
           <h3>Udyogasetu — Full Stack / Public</h3>
           <div class="small">(Public Platform)</div>
           <p>Built a job marketplace platform where users can post jobs, trainings, services and products (B2B & B2C). Implemented admin dashboards using <strong>ag-grid-angular</strong> and backend APIs on Node.js with SQL Server.</p>
@@ -244,8 +274,8 @@
     </section>
 
     <!-- Skills -->
-    <section id="skills">
-      <h2>Technical Skills</h2>
+    <section id="skills" aria-labelledby="skills-heading">
+      <h2 id="skills-heading">Technical Skills</h2>
       <div class="card">
         <div class="small"><strong>Frontend</strong></div>
         <div class="skills" aria-hidden="true">
@@ -280,145 +310,149 @@
     </section>
 
     <!-- Contact -->
-    <section id="contact">
-      <h2>Contact</h2>
-      <div class="contact-grid">
-        <div class="contact-card" role="article" aria-label="Email">
+    <section id="contact" aria-labelledby="contact-heading">
+      <h2 id="contact-heading">Contact</h2>
+      <div class="contact-grid" role="list">
+        <article class="contact-card" role="listitem" aria-label="Email">
           <div class="contact-emoji">📧</div>
           <div class="contact-meta">
             <div class="sub">Email</div>
             <a href="mailto:chandan11kr5511@gmail.com">chandan11kr5511@gmail.com</a>
           </div>
-        </div>
+        </article>
 
-        <div class="contact-card" role="article" aria-label="LinkedIn">
+        <article class="contact-card" role="listitem" aria-label="LinkedIn">
           <div class="contact-emoji">🔗</div>
           <div class="contact-meta">
             <div class="sub">LinkedIn</div>
             <a href="https://www.linkedin.com/in/chandan-kumar-paswan-592046135" target="_blank" rel="noopener">linkedin.com/in/chandan-kumar-paswan-592046135</a>
           </div>
-        </div>
+        </article>
 
-        <div class="contact-card" role="article" aria-label="GitHub">
+        <article class="contact-card" role="listitem" aria-label="GitHub">
           <div class="contact-emoji">💻</div>
           <div class="contact-meta">
             <div class="sub">GitHub</div>
             <a href="https://github.com/chandan11kr" target="_blank" rel="noopener">github.com/chandan11kr</a>
           </div>
-        </div>
+        </article>
       </div>
     </section>
-
   </main>
 
-  <footer>
-    © 2025 Chandan Kumar Paswan — Software Developer. All rights reserved.
-  </footer>
+  <footer>© 2025 Chandan Kumar Paswan — Software Developer.</footer>
 
-  <!-- floating theme toggle -->
-  <button id="themeToggle" class="floating" title="Toggle theme">🌙</button>
+  <!-- theme toggle -->
+  <button id="themeToggle" class="floating" aria-label="Toggle theme">🌙</button>
 
   <!-- back to top -->
-  <button id="backTop" class="backtop" title="Back to top">↑</button>
+  <button id="backTop" class="backtop" aria-label="Back to top">↑</button>
 
   <script>
     /* -------------------------
        Theme (persisted)
        ------------------------- */
-    const root = document.documentElement;
     const body = document.body;
     const themeToggle = document.getElementById('themeToggle');
-    const saved = localStorage.getItem('theme');
-    if(saved === 'dark') { body.setAttribute('data-theme','dark'); }
-    else { body.removeAttribute('data-theme'); }
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') body.setAttribute('data-theme', 'dark');
+    else body.removeAttribute('data-theme');
 
-    const updateToggleText = () => {
+    function updateToggle() {
       themeToggle.textContent = body.hasAttribute('data-theme') ? '☀️' : '🌙';
-    };
-    updateToggleText();
+    }
+    updateToggle();
+
+    function updateProgressColor() {
+      const progress = document.getElementById('progress');
+      if (body.hasAttribute('data-theme')) {
+        // dark animated-ish gradient (static color for CSS background via JS)
+        progress.style.background = 'linear-gradient(90deg, var(--progress-dark-start), var(--progress-dark-mid), var(--progress-dark-end))';
+        progress.style.boxShadow = '0 0 12px rgba(99,102,241,0.16)';
+      } else {
+        progress.style.background = getComputedStyle(document.documentElement).getPropertyValue('--progress-light') || '#0078d7';
+        progress.style.boxShadow = '0 0 6px rgba(0,120,215,0.12)';
+      }
+    }
+    updateProgressColor();
 
     themeToggle.addEventListener('click', () => {
-      if(body.hasAttribute('data-theme')) {
+      if (body.hasAttribute('data-theme')) {
         body.removeAttribute('data-theme');
         localStorage.setItem('theme','light');
       } else {
         body.setAttribute('data-theme','dark');
         localStorage.setItem('theme','dark');
       }
+      updateToggle();
       updateProgressColor();
-      updateToggleText();
     });
 
     /* -------------------------
-       Mobile menu toggle
+       Mobile menu (slide-in) behavior
        ------------------------- */
-    const menuBtn = document.getElementById('menuBtn');
-    const nav = document.querySelector('nav');
-    menuBtn.addEventListener('click', () => {
-      // toggle mobile nav by adding/removing class on UL (we rely on CSS media queries to hide nav on desktop)
-      const ul = nav.querySelector('a') ? nav : null;
-      // For simplicity: show browser native menu by toggling nav aria-hidden
-      nav.style.display = (nav.style.display === 'flex' || nav.style.display === '') ? 'flex' : 'flex';
-      // on small screens CSS hides nav; to open mobile, toggle left via class manipulations is omitted for brevity
-      // since nav is hidden in CSS at small sizes; users can edit if they want slide-in.
+    const openBtn = document.getElementById('openMenu');
+    const closeBtn = document.getElementById('closeMenu');
+    const overlay = document.getElementById('overlay');
+    const sidebar = document.getElementById('sidebar');
+
+    function openMenu() {
+      overlay.classList.add('show');
+      sidebar.classList.add('open');
+      overlay.setAttribute('aria-hidden','false');
+      sidebar.setAttribute('aria-hidden','false');
+      // prevent page scroll behind menu
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMenu() {
+      overlay.classList.remove('show');
+      sidebar.classList.remove('open');
+      overlay.setAttribute('aria-hidden','true');
+      sidebar.setAttribute('aria-hidden','true');
+      document.body.style.overflow = '';
+    }
+
+    openBtn && openBtn.addEventListener('click', openMenu);
+    closeBtn && closeBtn.addEventListener('click', closeMenu);
+
+    // close when clicking overlay (outside)
+    overlay.addEventListener('click', closeMenu);
+
+    // close when clicking any link inside sidebar (data-close)
+    sidebar.querySelectorAll('a[data-close]').forEach(a => {
+      a.addEventListener('click', () => {
+        // small delay allows browser to jump to anchor before closing
+        closeMenu();
+      });
+    });
+
+    // handle escape key to close
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeMenu();
     });
 
     /* -------------------------
-       Fade + slide sections on scroll (IntersectionObserver)
+       Intersection Observer for fade+slide
        ------------------------- */
     const sections = document.querySelectorAll('section');
     const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if(e.isIntersecting) e.target.classList.add('visible');
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
       });
     }, { threshold: 0.15 });
     sections.forEach(s => io.observe(s));
 
     /* -------------------------
-       Progress bar + back-to-top + theme toggle hide on scroll
+       Progress bar, back-to-top, theme-toggle hide/show
        ------------------------- */
     const progress = document.getElementById('progress');
     const backTop = document.getElementById('backTop');
     let lastScroll = window.scrollY;
-
-    function updateProgressColor(){
-      // set progress color based on theme
-      if(body.hasAttribute('data-theme')){
-        // dark theme gradient-like color
-        progress.style.background = 'linear-gradient(90deg, #06b6d4, #8b5cf6, #0078d7)';
-      } else {
-        progress.style.background = getComputedStyle(document.documentElement).getPropertyValue('--primary') || '#0078d7';
-      }
-    }
-    updateProgressColor();
-
-    window.addEventListener('scroll', () => {
+    function onScroll() {
       const scrolled = window.scrollY;
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       const pct = docHeight > 0 ? (scrolled / docHeight) * 100 : 0;
       progress.style.width = pct + '%';
 
-      // back-to-top: appear only when content > viewport and scrolled down some distance
-      if(document.body.scrollHeight > window.innerHeight && scrolled > window.innerHeight * 0.8) {
-        backTop.classList.add('show');
-      } else {
-        backTop.classList.remove('show');
-      }
-
-      // hide theme toggle when scrolling down, show when scrolling up
-      if(scrolled > lastScroll) themeToggle.classList.add('hide');
-      else themeToggle.classList.remove('hide');
-      lastScroll = scrolled <= 0 ? 0 : scrolled;
-    });
-
-    backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-
-    /* Accessibility: keyboard focus for floating buttons */
-    themeToggle.addEventListener('keydown', (e) => { if(e.key === 'Enter') themeToggle.click() });
-    backTop.addEventListener('keydown', (e) => { if(e.key === 'Enter') backTop.click() });
-
-    /* ensure progress color updates on theme init */
-    updateProgressColor();
-  </script>
-</body>
-</html>
+      // back-to-top appears only when page scrollable and scrolled past one viewport (80%)
+      if (document.body.scrollHeight > window.innerHeight && scrolled
