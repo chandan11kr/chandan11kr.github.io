@@ -1,4 +1,4 @@
-/* Global Styles */
+/* ---------- GLOBAL ---------- */
 * {
   margin: 0;
   padding: 0;
@@ -7,22 +7,22 @@
 }
 
 body {
-  scroll-behavior: smooth;
   background-color: #f8faff;
-  color: #333;
+  color: #222;
+  scroll-behavior: smooth;
 }
 
-/* Header */
+/* ---------- HEADER ---------- */
 header {
   background-color: #004aad;
-  padding: 15px 40px;
   position: fixed;
   width: 100%;
   top: 0;
   z-index: 10;
+  padding: 15px 30px;
 }
 
-nav {
+.navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -35,12 +35,12 @@ nav {
 }
 
 .logo span {
-  color: #00aaff;
+  color: #00b3ff;
 }
 
 .nav-links {
-  list-style: none;
   display: flex;
+  list-style: none;
   gap: 25px;
 }
 
@@ -52,10 +52,17 @@ nav {
 }
 
 .nav-links a:hover {
-  color: #00aaff;
+  color: #00b3ff;
 }
 
-/* Sections */
+.menu-icon {
+  display: none;
+  font-size: 26px;
+  color: white;
+  cursor: pointer;
+}
+
+/* ---------- SECTIONS ---------- */
 .section {
   padding: 100px 20px 60px;
   max-width: 1000px;
@@ -63,6 +70,7 @@ nav {
   text-align: center;
 }
 
+/* Home */
 .home {
   background: linear-gradient(120deg, #004aad, #007bff);
   color: white;
@@ -75,20 +83,20 @@ nav {
 }
 
 .home span {
-  color: #00d5ff;
+  color: #00e6ff;
 }
 
 .btn {
-  background-color: #00aaff;
+  background-color: #00b3ff;
   color: #fff;
   padding: 10px 25px;
+  border-radius: 6px;
   text-decoration: none;
-  border-radius: 5px;
   transition: 0.3s;
 }
 
 .btn:hover {
-  background-color: #007acc;
+  background-color: #0092d1;
 }
 
 /* Skills */
@@ -108,20 +116,9 @@ nav {
   font-size: 14px;
 }
 
-/* Projects */
-.project-card {
-  background: white;
-  padding: 20px;
-  margin: 15px auto;
-  border-radius: 10px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-  max-width: 700px;
-  text-align: left;
-}
-
-/* Experience */
-.exp-card {
-  background: white;
+/* Project + Experience Cards */
+.project-card, .exp-card {
+  background: #fff;
   padding: 20px;
   margin: 15px auto;
   border-radius: 10px;
@@ -136,6 +133,11 @@ nav {
   text-decoration: none;
 }
 
+.contact a:hover {
+  text-decoration: underline;
+}
+
+/* Footer */
 footer {
   background-color: #004aad;
   color: white;
@@ -143,4 +145,44 @@ footer {
   text-align: center;
   font-size: 14px;
   margin-top: 30px;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 768px) {
+  .nav-links {
+    position: absolute;
+    background: #004aad;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    display: none;
+    text-align: center;
+    padding: 10px 0;
+  }
+
+  .nav-links.show {
+    display: flex;
+  }
+
+  .menu-icon {
+    display: block;
+  }
+
+  .section {
+    padding: 80px 20px 40px;
+  }
+
+  .home h1 {
+    font-size: 28px;
+  }
+
+  .home p {
+    font-size: 16px;
+  }
+
+  .skill-list span {
+    font-size: 13px;
+    padding: 6px 14px;
+  }
 }
