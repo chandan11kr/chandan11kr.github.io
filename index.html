@@ -7,18 +7,21 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Navigation -->
+  <!-- Header -->
   <header>
-    <nav>
+    <nav class="navbar">
       <h2 class="logo">Chandan<span>Paswan</span></h2>
-      <ul class="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#contact">Contact</a></li>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" onclick="toggleMenu()">Home</a></li>
+        <li><a href="#about" onclick="toggleMenu()">About</a></li>
+        <li><a href="#skills" onclick="toggleMenu()">Skills</a></li>
+        <li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
+        <li><a href="#experience" onclick="toggleMenu()">Experience</a></li>
+        <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
       </ul>
+      <div class="menu-icon" onclick="toggleMenu()">
+        ☰
+      </div>
     </nav>
   </header>
 
@@ -26,7 +29,7 @@
   <section id="home" class="section home">
     <div class="content">
       <h1>Hi, I'm <span>Chandan Kumar Paswan</span></h1>
-      <p>Front-End Developer | Angular | UI Enthusiast</p>
+      <p>Software Developer | Angular | Node.js | SQL Server</p>
       <a href="#contact" class="btn">Get in Touch</a>
     </div>
   </section>
@@ -35,79 +38,89 @@
   <section id="about" class="section about">
     <h2>About Me</h2>
     <p>
-      I am a passionate Front-End Developer with experience in building modern, responsive, and user-centric web applications using Angular and TypeScript.
-      I enjoy solving complex problems and delivering high-quality code with performance and scalability in mind.
+      I am a results-driven software developer with over <strong>5 years of experience</strong> 
+      in building dynamic and performance-optimized web applications. 
+      I specialize in <strong>Angular, Node.js</strong>, and <strong>SQL Server</strong>.
+      I love solving performance challenges, identifying hidden issues, and creating impactful solutions.
     </p>
   </section>
 
-  <!-- Skills Section -->
+  <!-- Skills -->
   <section id="skills" class="section skills">
-    <h2>Skills</h2>
+    <h2>Technical Skills</h2>
     <div class="skill-list">
       <span>Angular</span>
-      <span>TypeScript</span>
-      <span>JavaScript (ES6+)</span>
-      <span>HTML5</span>
-      <span>CSS3</span>
-      <span>Bootstrap</span>
+      <span>Node.js</span>
+      <span>SQL Server (Stored Procedures)</span>
+      <span>Ag-Grid Angular</span>
+      <span>Socket.io</span>
+      <span>REST APIs</span>
+      <span>HTML, CSS, JavaScript</span>
+      <span>React (Basic)</span>
       <span>Highcharts</span>
       <span>Git & GitHub</span>
-      <span>Agile Methodology</span>
     </div>
   </section>
 
-  <!-- Projects Section -->
+  <!-- Projects -->
   <section id="projects" class="section projects">
     <h2>Projects</h2>
 
     <div class="project-card">
       <h3>Udyogasetu</h3>
-      <p>Public domain platform connecting job seekers and employers. Built responsive UI using Angular and integrated REST APIs for real-time updates.</p>
+      <p>Public domain platform connecting job seekers and employers. Built responsive UI with Angular and integrated REST APIs for real-time updates.</p>
     </div>
 
     <div class="project-card">
       <h3>MyWizard (Accenture Internal Tool)</h3>
-      <p>Developed modules for a performance analytics dashboard within Accenture’s internal automation tool using Angular and Highcharts.</p>
+      <p>Developed modules for performance analytics dashboards within Accenture’s automation suite using Angular and Highcharts.</p>
     </div>
 
     <div class="project-card">
       <h3>Airbus Chronos (Infosys Client Project)</h3>
-      <p>Contributed to Airbus’s internal time-tracking and productivity web application. Designed KPI dashboards using Highcharts and Angular.</p>
+      <p>Contributed to Airbus’s internal productivity application, creating KPI dashboards using Angular and Highcharts.</p>
     </div>
   </section>
 
-  <!-- Experience Section -->
+  <!-- Experience -->
   <section id="experience" class="section experience">
     <h2>Work Experience</h2>
+
     <div class="exp-card">
       <h3>Accenture</h3>
-      <p><strong>Front-End Developer</strong> | Jul 2024 – Present | Bangalore</p>
-      <p>Working on scalable Angular-based dashboards with Highcharts and internal automation tools.</p>
+      <p><strong>Custom Software Engineering Analyst</strong> | Jul 2024 – Present | Bangalore</p>
+      <p>Working on MyWizard internal tool — improved code quality, built reusable Angular components, and enhanced performance of dashboards.</p>
     </div>
 
     <div class="exp-card">
       <h3>Infosys</h3>
       <p><strong>Associate Business Analyst</strong> | Oct 2022 – Jul 2024 | Bangalore</p>
-      <p>Developed internal web applications for Airbus with a focus on performance and data visualization.</p>
+      <p>Delivered key Angular components for Airbus Chronos web app, ensuring responsive and performant user experience.</p>
     </div>
 
     <div class="exp-card">
-      <h3>Coworks Solutions Pvt. Ltd</h3>
+      <h3>Coworks Solutions Pvt. Ltd.</h3>
       <p><strong>Software Developer</strong> | Dec 2020 – Oct 2022 | Bangalore</p>
-      <p>Built and maintained internal enterprise applications with modern front-end technologies.</p>
+      <p>Built and maintained internal business apps using Angular, Node.js, and SQL Server with a focus on clean architecture.</p>
     </div>
   </section>
 
-  <!-- Contact Section -->
+  <!-- Contact -->
   <section id="contact" class="section contact">
     <h2>Contact</h2>
-    <p>📞 +91 9110022908</p>
     <p>📧 <a href="mailto:chandan11kr@gmail.com">chandan11kr@gmail.com</a></p>
     <p>🌐 <a href="https://github.com/chandan11kr" target="_blank">github.com/chandan11kr</a></p>
+    <p>📍 Bangalore, India</p>
   </section>
 
   <footer>
-    <p>© 2025 Chandan Kumar Paswan | Built with ❤️ using HTML & CSS</p>
+    <p>© 2025 Chandan Kumar Paswan | Built with ❤️ and clean code</p>
   </footer>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('show');
+    }
+  </script>
 </body>
 </html>
