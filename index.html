@@ -1,35 +1,32 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chandan Kumar Paswan - Portfolio</title>
+  <title>Chandan Kumar Paswan | Portfolio</title>
   <style>
     :root {
-      --bg: #ffffff;
-      --text: #1a1a1a;
-      --accent: #0078ff;
-      --card: #f7f9fc;
-    }
-    [data-theme="dark"] {
-      --bg: #0e1623;
-      --text: #f5f7fa;
-      --accent: #3ba4ff;
-      --card: #1a2433;
+      --primary-color: #007bff;
+      --secondary-color: #6f42c1;
+      --text-color: #ffffff;
+      --bg-color: rgba(255, 255, 255, 0.1);
+      --backdrop: blur(10px);
+      --transition-speed: 0.3s;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
     body {
-      font-family: "Inter", sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-      scroll-behavior: smooth;
-      transition: background 0.3s, color 0.3s;
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      color: var(--text-color);
+      background: linear-gradient(to bottom, #1e3a8a, #6d28d9);
+      background-size: 100% 200%;
+      animation: gradientShift 15s ease-in-out infinite alternate;
+      transition: background 0.3s ease;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: top; }
+      100% { background-position: bottom; }
     }
 
     header {
@@ -37,190 +34,196 @@
       top: 0;
       left: 0;
       width: 100%;
-      background: var(--card);
+      backdrop-filter: var(--backdrop);
+      background: rgba(0, 0, 0, 0.4);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 16px 24px;
-      z-index: 999;
-      box-shadow: 0 1px 6px rgba(0,0,0,0.08);
-    }
-    header h1 {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--accent);
+      padding: 15px 30px;
+      z-index: 1000;
     }
 
-    nav {
-      display: flex;
-      gap: 24px;
-    }
-    nav a {
-      text-decoration: none;
-      color: var(--text);
+    .logo {
+      font-size: 1.4rem;
       font-weight: 600;
-      transition: color 0.3s;
+      letter-spacing: 0.5px;
     }
-    nav a:hover {
-      color: var(--accent);
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li a {
+      color: var(--text-color);
+      text-decoration: none;
+      position: relative;
+      font-weight: 500;
+      transition: color var(--transition-speed);
+    }
+
+    nav ul li a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 0;
+      height: 2px;
+      background: var(--text-color);
+      transition: width 0.3s ease;
+    }
+
+    nav ul li a:hover::after {
+      width: 100%;
     }
 
     .menu-icon {
       display: none;
-      font-size: 1.5rem;
+      font-size: 1.8rem;
       cursor: pointer;
     }
 
-    main {
-      max-width: 960px;
-      margin: 100px auto;
-      padding: 0 20px;
-    }
+    @media (max-width: 768px) {
+      .menu-icon {
+        display: block;
+      }
 
-    section {
-      margin-bottom: 60px;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeSlideUp 0.8s forwards;
-    }
-    @keyframes fadeSlideUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
+      nav ul {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        flex-direction: column;
+        width: 70%;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(12px);
+        padding: 100px 20px;
+        transition: left 0.4s ease;
+      }
+
+      nav ul.show {
+        left: 0;
+      }
+
+      nav ul li {
+        margin: 20px 0;
       }
     }
 
-    h2 {
-      font-size: 1.75rem;
-      margin-bottom: 12px;
-      color: var(--accent);
+    section {
+      max-width: 1000px;
+      margin: 120px auto 60px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1, h2 {
+      color: #fff;
+      margin-bottom: 15px;
+    }
+
+    .about p {
+      font-size: 1rem;
+      line-height: 1.6;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .resume-btn {
+      margin-top: 20px;
+      display: inline-block;
+      padding: 10px 20px;
+      border: 1px solid #fff;
+      border-radius: 8px;
+      color: #fff;
+      text-decoration: none;
+      transition: background var(--transition-speed);
+    }
+
+    .resume-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
     }
 
     .card {
-      background: var(--card);
-      padding: 20px;
+      background: var(--bg-color);
+      backdrop-filter: var(--backdrop);
+      border-radius: 16px;
+      padding: 25px;
+      margin: 20px auto;
+      max-width: 800px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .skills-grid, .achievements {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+
+    .skill-item, .achievement-item {
+      background: rgba(255, 255, 255, 0.1);
       border-radius: 12px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
-      margin-top: 10px;
+      padding: 15px;
     }
 
-    footer {
-      text-align: center;
-      padding: 20px;
-      color: var(--text);
-      border-top: 1px solid rgba(0,0,0,0.1);
+    .contact {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
-    /* Scroll progress bar */
+    .contact a {
+      color: #fff;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 12px;
+      border-radius: 12px;
+      transition: background 0.3s ease;
+    }
+
+    .contact a:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Floating Back to Top */
+    #backToTop {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      padding: 10px 15px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      font-size: 1.2rem;
+      display: none;
+      transition: opacity 0.3s ease;
+      z-index: 999;
+    }
+
+    #backToTop:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Scroll Progress Bar */
     #progress-bar {
       position: fixed;
       top: 0;
       left: 0;
-      height: 4px;
-      background: var(--accent);
       width: 0%;
-      z-index: 1000;
-      transition: width 0.15s linear;
-    }
-
-    /* Back to top button */
-    #backToTop {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      border-radius: 50%;
-      width: 44px;
-      height: 44px;
-      font-size: 20px;
-      cursor: pointer;
-      display: none;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      transition: opacity 0.3s ease, transform 0.3s ease;
-      z-index: 998;
-    }
-    #backToTop.show {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* mobile slide-in and overlay */
-    .mobile-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.7); /* 70% semi-transparent dark overlay */
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      z-index: 995;
-    }
-    .mobile-overlay.show {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .mobile-sidebar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100vh;
-      width: 70vw;
-      max-width: 420px;
-      background: var(--card);
-      color: var(--text);
-      transform: translateX(-120%);
-      transition: transform 0.32s cubic-bezier(.2,.9,.2,1);
-      z-index: 996;
-      padding: 28px 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      box-shadow: 6px 0 25px rgba(0,0,0,0.25);
-      border-right: 1px solid rgba(0,0,0,0.05);
-    }
-    [data-theme="dark"] .mobile-sidebar {
-      background: #101826;
-      color: #ffffff;
-      border-right: 1px solid rgba(255,255,255,0.1);
-    }
-    .mobile-sidebar.open {
-      transform: translateX(0);
-    }
-    .mobile-sidebar a {
-      color: inherit;
-      text-decoration: none;
-      font-weight: 600;
-      padding: 10px 8px;
-      border-radius: 6px;
-      transition: background 0.2s, color 0.2s;
-    }
-    .mobile-sidebar a:hover {
-      background: rgba(0,0,0,0.05);
-    }
-    [data-theme="dark"] .mobile-sidebar a:hover {
-      background: rgba(255,255,255,0.1);
-    }
-    .mobile-sidebar .close-btn {
-      align-self: flex-end;
-      font-size: 1.2rem;
-      background: transparent;
-      border: 0;
-      color: inherit;
-      cursor: pointer;
-    }
-
-    @media (max-width: 760px) {
-      nav {
-        display: none;
-      }
-      .menu-icon {
-        display: block;
-      }
+      height: 4px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      z-index: 2000;
+      transition: width 0.25s ease-out;
     }
   </style>
 </head>
@@ -228,136 +231,126 @@
   <div id="progress-bar"></div>
 
   <header>
-    <h1>Chandan Kumar Paswan</h1>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#experience">Experience</a>
-      <a href="#skills">Skills</a>
-      <a href="#contact">Contact</a>
-    </nav>
+    <div class="logo">Chandan Kumar Paswan</div>
     <div class="menu-icon" id="menu-icon">☰</div>
+    <nav>
+      <ul id="menu-list">
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#achievements">Achievements</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <!-- Mobile sidebar -->
-  <div class="mobile-overlay" id="mobile-overlay"></div>
-  <div class="mobile-sidebar" id="mobile-sidebar">
-    <button class="close-btn" id="close-btn">✕</button>
-    <a href="#about">About</a>
-    <a href="#experience">Experience</a>
-    <a href="#skills">Skills</a>
-    <a href="#contact">Contact</a>
-  </div>
+  <section id="about" class="about">
+    <h1>Software Developer</h1>
+    <p>
+      I'm <strong>Chandan Kumar Paswan</strong>, a dedicated Software Developer with 5 years of professional experience in full-stack development, building scalable web applications using Angular, Node.js, SQL Server, and modern tools like Ag-Grid and Highcharts. Passionate about problem-solving, performance optimization, and delivering high-quality user experiences.
+    </p>
+    <a href="https://drive.google.com/file/d/1cXS2kgWYGDrFE2SM3Bl-F9GVEroGWmof/view?usp=drivesdk" target="_blank" class="resume-btn">View My Resume</a>
+  </section>
 
-  <main>
-    <section id="about">
-      <h2>About Me</h2>
-      <div class="card">
-        <p>
-          I'm a Software Developer with <strong>5 years of professional experience</strong> specializing in
-          front-end and back-end development using <strong>Angular, Node.js, SQL Server, and Knex.js</strong>.
-          I enjoy building scalable and efficient applications with a focus on clean architecture and
-          maintainable code. Passionate about learning, problem-solving, and optimizing workflows through
-          automation and smart solutions.
-        </p>
-      </div>
-    </section>
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="card">
+      <h3>Accenture - MyWizard</h3>
+      <p>Developed automation and workflow modules using Ag-Grid-Angular, Serverless, Azure, Node.js, SQL Server, and Angular.</p>
+    </div>
+    <div class="card">
+      <h3>Infosys - Airbus Chronos</h3>
+      <p>Built KPI dashboards and performance tracking tools for Airbus using Angular, Highcharts, Socket.io, Node.js, and SQL Server.</p>
+    </div>
+    <div class="card">
+      <h3>Coworks Solutions Pvt. Ltd - Udyogasetu</h3>
+      <p>Developed a public B2B and B2C marketplace application for jobs, training, and services using Angular, Ag-Grid-Angular, Strapi, Knex.js, and MySQL.</p>
+    </div>
+    <div class="card">
+      <h3>Coworks Solutions Pvt. Ltd - Barcode Generator & Scanner</h3>
+      <p>Developed a web and mobile solution for generating and scanning barcodes to track manufacturing and shipment for clients like Kirby Building Systems and Diqu Tech. Tech stack: Node.js, SQL Server, Java, AJAX, HTML, CSS, JavaScript.</p>
+    </div>
+  </section>
 
-    <section id="experience">
-      <h2>Experience</h2>
+  <section id="achievements">
+    <h2>Achievements</h2>
+    <div class="card achievements">
+      <div class="achievement-item">Improved application performance by ~60% on Airbus Chronos (Infosys).</div>
+      <div class="achievement-item">Prevented major production failures by proactively identifying and fixing critical code issues (Accenture).</div>
+      <div class="achievement-item">Developed public-facing marketplace Udyogasetu and contributed end-to-end features.</div>
+    </div>
+  </section>
 
-      <div class="card">
-        <h3>Accenture (Software Engineer)</h3>
-        <p><strong>Tech Stack:</strong> Angular, Ag-Grid-Angular, Node.js, Serverless, Azure, SQL Server</p>
-        <p>
-          Developed automation and workflow modules leveraging <strong>Ag-Grid-Angular</strong>,
-          <strong>Serverless</strong>, <strong>Azure</strong>, and <strong>Node.js</strong>.
-          Focused on optimizing data-driven workflows and ensuring smooth integration between
-          front-end and back-end systems.
-        </p>
-      </div>
+  <section id="skills">
+    <h2>Skills</h2>
+    <div class="card skills-grid">
+      <div class="skill-item">Angular</div>
+      <div class="skill-item">Node.js</div>
+      <div class="skill-item">Java (Basics)</div>
+      <div class="skill-item">TypeScript</div>
+      <div class="skill-item">Ag-Grid-Angular</div>
+      <div class="skill-item">Highcharts</div>
+      <div class="skill-item">Socket.io</div>
+      <div class="skill-item">Azure</div>
+      <div class="skill-item">Serverless</div>
+      <div class="skill-item">SQL Server (Stored Procedures)</div>
+      <div class="skill-item">Knex.js</div>
+      <div class="skill-item">MySQL</div>
+      <div class="skill-item">HTML / CSS / JavaScript</div>
+      <div class="skill-item">Visual Studio Code / Eclipse / Android Studio</div>
+    </div>
+  </section>
 
-      <div class="card">
-        <h3>Infosys (System Engineer)</h3>
-        <p><strong>Tech Stack:</strong> Angular, Node.js, SQL Server</p>
-        <p>
-          Worked on enterprise-level applications with modular architecture and efficient data
-          handling. Enhanced existing features and contributed to high-performance front-end modules.
-        </p>
-      </div>
-
-      <div class="card">
-        <h3>Coworks Solutions Pvt. Ltd (Software Developer)</h3>
-        <p><strong>Tech Stack:</strong> Knex.js, Highcharts, Strapi, MySQL, SQL Server, Ag-Grid-Angular</p>
-        <p>
-          Developed solutions for <strong>Udyogasetu</strong> using Ag-Grid-Angular and integrated
-          barcode generation and scanning modules using SQL Server. Customized Strapi CMS and built
-          visual analytics dashboards using Highcharts.
-        </p>
-      </div>
-    </section>
-
-    <section id="skills">
-      <h2>Skills</h2>
-      <div class="card">
-        <p>
-          <strong>Frontend:</strong> Angular, HTML, CSS, TypeScript, Ag-Grid-Angular<br />
-          <strong>Backend:</strong> Node.js, Express, Knex.js, Strapi<br />
-          <strong>Database:</strong> SQL Server, MySQL<br />
-          <strong>Tools & Platforms:</strong> Azure, Serverless, Git, Postman
-        </p>
-      </div>
-    </section>
-
-    <section id="contact">
-      <h2>Contact</h2>
-      <div class="card">
-        <p>📧 <a href="mailto:chanan11kr5511@gmail.com">chanan11kr5511@gmail.com</a></p>
-        <p>🔗 <a href="https://www.linkedin.com/in/chandan-kumar-paswan-592046135" target="_blank">LinkedIn Profile</a></p>
-        <p>💻 <a href="https://github.com/chandan11kr" target="_blank">GitHub Profile</a></p>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <p>© 2025 Chandan Kumar Paswan. All rights reserved.</p>
-  </footer>
+  <section id="contact">
+    <h2>Contact</h2>
+    <div class="card contact">
+      <a href="mailto:chandan11kr5511@gmail.com">📧 chandan11kr5511@gmail.com</a>
+      <a href="https://www.linkedin.com/in/chandan-kumar-paswan-592046135" target="_blank">🔗 LinkedIn</a>
+      <a href="https://github.com/chandan11kr" target="_blank">💻 GitHub</a>
+    </div>
+  </section>
 
   <button id="backToTop">↑</button>
 
   <script>
-    // Scroll progress bar
+    const menuIcon = document.getElementById("menu-icon");
+    const menuList = document.getElementById("menu-list");
+
+    menuIcon.addEventListener("click", () => {
+      menuList.classList.toggle("show");
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!menuList.contains(e.target) && !menuIcon.contains(e.target)) {
+        menuList.classList.remove("show");
+      }
+    });
+
+    document.querySelectorAll("nav a").forEach(link => {
+      link.addEventListener("click", () => {
+        menuList.classList.remove("show");
+      });
+    });
+
     const progressBar = document.getElementById("progress-bar");
     window.addEventListener("scroll", () => {
-      const scrollTop = document.documentElement.scrollTop;
-      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      progressBar.style.width = `${(scrollTop / height) * 100}%`;
+      const scrollTop = window.scrollY;
+      const docHeight = document.body.scrollHeight - window.innerHeight;
+      const scrollPercent = (scrollTop / docHeight) * 100;
+      progressBar.style.width = scrollPercent + "%";
     });
 
-    // Back to top button
     const backToTop = document.getElementById("backToTop");
     window.addEventListener("scroll", () => {
-      if (window.scrollY > window.innerHeight) backToTop.classList.add("show");
-      else backToTop.classList.remove("show");
+      if (window.scrollY > window.innerHeight) {
+        backToTop.style.display = "block";
+      } else {
+        backToTop.style.display = "none";
+      }
     });
-    backToTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 
-    // Mobile menu toggle
-    const menuIcon = document.getElementById("menu-icon");
-    const mobileSidebar = document.getElementById("mobile-sidebar");
-    const overlay = document.getElementById("mobile-overlay");
-    const closeBtn = document.getElementById("close-btn");
-
-    function toggleMenu(open) {
-      mobileSidebar.classList.toggle("open", open);
-      overlay.classList.toggle("show", open);
-    }
-
-    menuIcon.addEventListener("click", () => toggleMenu(true));
-    closeBtn.addEventListener("click", () => toggleMenu(false));
-    overlay.addEventListener("click", () => toggleMenu(false));
-
-    document.querySelectorAll(".mobile-sidebar a").forEach(link => {
-      link.addEventListener("click", () => toggleMenu(false));
+    backToTop.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
     });
   </script>
 </body>
