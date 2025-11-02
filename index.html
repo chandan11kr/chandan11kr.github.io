@@ -1,213 +1,517 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Chandan Kumar Paswan - Portfolio</title>
-<style>
-  :root {
-    --primary:#6a5acd;
-    --secondary:#7b68ee;
-    --bg-dark:#0f172a;
-    --bg-light:#f8fafc;
-    --text-dark:#e2e8f0;
-    --text-light:#1e293b;
-  }
-  body {
-    font-family:'Poppins',sans-serif;
-    margin:0;padding:0;
-    background:var(--bg-dark);
-    color:var(--text-dark);
-    transition:background .4s,color .4s;
-  }
-  body.light-mode{background:var(--bg-light);color:var(--text-light);}
-  /* ===== Header ===== */
-  header{
-    position:sticky;top:0;z-index:999;
-    display:flex;justify-content:space-between;align-items:center;
-    padding:14px 28px;
-    background:rgba(255,255,255,0.05);
-    backdrop-filter:blur(14px);
-    border-bottom:1px solid rgba(255,255,255,0.1);
-  }
-  body.light-mode header{background:rgba(255,255,255,0.8);border-color:#ddd;}
-  .header-left h1{margin:0;font-size:1.25rem;color:#fff;}
-  .designation{font-size:.85rem;opacity:.85;margin-top:-4px;}
-  body.light-mode .header-left h1,body.light-mode .designation{color:var(--text-light);}
-  nav{display:flex;gap:22px;align-items:center;}
-  nav a{
-    color:#fff;text-decoration:none;font-weight:500;transition:opacity .3s;
-  }
-  nav a:hover{opacity:.8;}
-  body.light-mode nav a{color:var(--text-light);}
-  .menu-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;}
-  .menu-toggle span{width:24px;height:3px;background:#fff;border-radius:2px;}
-  body.light-mode .menu-toggle span{background:var(--text-light);}
-  #themeToggle{
-    background:#fff;border:none;border-radius:50%;
-    width:32px;height:32px;cursor:pointer;
-    display:flex;align-items:center;justify-content:center;
-    color:var(--primary);box-shadow:0 2px 6px rgba(0,0,0,0.3);
-    transition:transform .3s;
-  }
-  #themeToggle:hover{transform:rotate(20deg);}
-  /* ===== Sections ===== */
-  .container{max-width:1000px;margin:40px auto;padding:0 20px;}
-  section{margin-bottom:40px;}
-  .card{
-    background:rgba(255,255,255,0.06);
-    border-radius:12px;padding:24px;
-    box-shadow:0 6px 20px rgba(0,0,0,0.25);
-    backdrop-filter:blur(12px);
-    transition:all .3s;
-  }
-  body.light-mode .card{background:#fff;box-shadow:0 6px 16px rgba(0,0,0,0.1);}
-  .card:hover{transform:translateY(-4px);}
-  h2{
-    font-size:1.5rem;margin-bottom:12px;position:relative;display:inline-block;
-  }
-  h2::after{
-    content:"";position:absolute;left:0;bottom:-5px;width:100%;height:3px;
-    background:linear-gradient(90deg,var(--primary),var(--secondary));
-    border-radius:2px;animation:gradientMove 3s linear infinite;
-  }
-  @keyframes gradientMove{0%{background-position:0%}100%{background-position:200%}}
-  .resume-btn{
-    display:inline-block;padding:10px 18px;
-    background:linear-gradient(90deg,var(--primary),var(--secondary));
-    color:#fff;border-radius:8px;text-decoration:none;font-weight:600;
-    box-shadow:0 4px 12px rgba(0,0,0,0.25);transition:all .3s;
-  }
-  .resume-btn:hover{opacity:.9;transform:translateY(-2px);}
-  .skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
-  .skill-item{
-    text-align:center;padding:10px;border-radius:10px;font-weight:500;
-    background:rgba(255,255,255,0.08);box-shadow:0 2px 8px rgba(0,0,0,0.25);
-    transition:all .3s;
-  }
-  body.light-mode .skill-item{background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.12);}
-  .skill-item:hover{
-    background:linear-gradient(90deg,var(--primary),var(--secondary));color:#fff;
-  }
-  .contact-grid{display:grid;gap:12px;}
-  .contact-card{
-    padding:12px 14px;border-radius:10px;
-    background:rgba(255,255,255,0.08);box-shadow:0 2px 8px rgba(0,0,0,0.25);
-    transition:all .3s;
-  }
-  body.light-mode .contact-card{background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.12);}
-  .contact-card:hover{
-    background:linear-gradient(90deg,var(--primary),var(--secondary));color:#fff;
-  }
-  @media(max-width:768px){
-    nav{
-      display:none;flex-direction:column;position:absolute;top:65px;right:20px;
-      background:linear-gradient(135deg,var(--primary),var(--secondary));
-      padding:14px;border-radius:10px;
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chandan Kumar Paswan — Portfolio</title>
+  <style>
+    :root{
+      --primary:#4f46e5;
+      --secondary:#8b5cf6;
+      --bg-dark:#0b1220;
+      --bg-light:#f8fafc;
+      --text-dark:#e6eef8;
+      --text-light:#0f1724;
+      --card-dark:#0f1724;
+      --card-light:#ffffff;
+      --glass-alpha:0.06;
+      --radius:12px;
+      --transition:0.32s;
+      --menu-width:320px;
     }
-    nav.active{display:flex;}
-    .menu-toggle{display:flex;}
-  }
-</style>
+
+    /* Base */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;font-family:Inter,ui-sans-serif,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+      background:var(--bg-dark);color:var(--text-dark);
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      transition:background var(--transition), color var(--transition);
+      scroll-behavior:smooth;
+    }
+    body.light-mode{
+      background:var(--bg-light); color:var(--text-light);
+    }
+
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:1200;
+      display:flex; align-items:center; gap:16px; justify-content:space-between;
+      padding:12px 18px;
+      background: rgba(255,255,255,0.02);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255,255,255,0.02);
+      transition: background var(--transition), border var(--transition);
+    }
+    body.light-mode header{
+      background: rgba(255,255,255,0.86);
+      border-bottom: 1px solid rgba(15,23,42,0.06);
+    }
+    .header-left{display:flex; flex-direction:column; gap:2px;}
+    .name{font-weight:700; font-size:1.05rem; line-height:1;}
+    .designation{font-size:0.82rem; opacity:0.9;}
+
+    /* Desktop nav */
+    .nav-links{
+      display:flex; gap:18px; align-items:center;
+    }
+    .nav-links a{
+      color:inherit; text-decoration:none; font-weight:600; font-size:0.95rem;
+      transition: color .18s, opacity .18s;
+    }
+    .nav-links a:hover{ color:var(--primary); opacity:0.95; }
+
+    /* Right controls */
+    .right-controls{ display:flex; gap:10px; align-items:center; }
+
+    .resume-btn {
+      display:inline-block; padding:8px 12px; border-radius:10px;
+      background: linear-gradient(90deg,var(--primary),var(--secondary));
+      color:#fff; text-decoration:none; font-weight:700; font-size:0.9rem;
+      box-shadow: 0 6px 20px rgba(79,70,229,0.14); border: none;
+    }
+    .resume-btn:hover{ transform:translateY(-3px); }
+
+    .theme-toggle{
+      width:38px; height:38px; border-radius:10px; border:none;
+      background:#fff; color:var(--primary); cursor:pointer; display:flex;
+      align-items:center; justify-content:center; font-size:18px;
+      box-shadow:0 6px 18px rgba(2,6,23,0.25);
+    }
+    body.light-mode .theme-toggle{ color:var(--primary); }
+
+    /* Hamburger (mobile) - visible only on small screens */
+    .hamburger-btn{
+      display:none; width:44px; height:44px; align-items:center; justify-content:center;
+      border-radius:10px; border:none; background:transparent; cursor:pointer;
+    }
+    .hamburger-btn .bar{ display:block; width:20px; height:2px; background:currentColor; margin:3px 0; border-radius:2px; }
+
+    /* Side menu (mobile) */
+    .side-menu {
+      position:fixed; top:0; right: calc(-1 * var(--menu-width)); height:100vh;
+      width:var(--menu-width); z-index:1400;
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(12px);
+      box-shadow: -12px 0 40px rgba(2,6,23,0.5);
+      padding:22px;
+      transition: right .36s cubic-bezier(.2,.9,.2,1), opacity .36s;
+      opacity:0;
+      display:flex; flex-direction:column; gap:12px;
+    }
+    body.light-mode .side-menu{ background: rgba(255,255,255,0.92); box-shadow:-12px 0 36px rgba(2,6,23,0.06); }
+    .side-menu.open{ right:0; opacity:1; }
+
+    .side-menu a{ color:inherit; text-decoration:none; font-weight:600; padding:10px 8px; display:block; border-radius:8px; }
+    .side-menu a:hover{ background: rgba(255,255,255,0.02); color:var(--primary); }
+
+    /* side overlay - to capture outside clicks and dim background */
+    .overlay{
+      position:fixed; inset:0; background:rgba(2,6,23,0.36); z-index:1300; opacity:0; pointer-events:none;
+      transition: opacity .28s;
+    }
+    .overlay.show{ opacity:1; pointer-events:auto; }
+
+    /* Container */
+    .container{ max-width:1100px; margin:36px auto; padding:0 20px 80px; }
+
+    /* Section card */
+    section.card{
+      background: rgba(255,255,255,var(--glass-alpha));
+      border-radius: calc(var(--radius) + 4px);
+      padding:22px;
+      margin-bottom:28px;
+      box-shadow: 0 10px 30px rgba(2,6,23,0.5);
+      border: 1px solid rgba(255,255,255,0.04);
+      transition: transform .36s ease, box-shadow .36s ease, background .36s;
+      opacity:0; transform:translateY(18px);
+    }
+    body.light-mode section.card{
+      background: var(--card-light); border:1px solid rgba(15,23,42,0.06);
+      box-shadow: 0 10px 28px rgba(2,6,23,0.06);
+    }
+    section.card.visible{ opacity:1; transform:translateY(0); }
+
+    section.card h2{
+      margin:0 0 10px 0; font-size:1.25rem;
+      background:linear-gradient(90deg,var(--primary),var(--secondary));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+      display:inline-block;
+    }
+
+    /* Grid helpers */
+    .grid-2{ display:grid; grid-template-columns:repeat(2,1fr); gap:16px; align-items:start; }
+    .grid-1{ display:block; gap:0; }
+    @media (max-width:860px){ .grid-2{ grid-template-columns:1fr; } }
+
+    /* Experience / Project cards inside section */
+    .item-card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:12px; padding:14px; border:1px solid rgba(255,255,255,0.04);
+      box-shadow: 0 8px 20px rgba(2,6,23,0.45);
+      transition: transform .28s ease, box-shadow .28s ease;
+      opacity:0; transform:translateY(18px);
+    }
+    body.light-mode .item-card{
+      background: linear-gradient(180deg,#ffffff,#ffffff);
+      border:1px solid rgba(15,23,42,0.06);
+      box-shadow: 0 8px 20px rgba(2,6,23,0.06);
+    }
+    .item-card.visible{ opacity:1; transform:translateY(0); }
+    .item-card:hover{ transform:translateY(-6px); box-shadow:0 18px 40px rgba(79,70,229,0.12) }
+
+    .item-head{ display:flex; justify-content:space-between; gap:12px; align-items:start; }
+    .item-title{ font-weight:700; font-size:1rem; margin-bottom:6px; }
+    .item-sub{ font-size:0.9rem; opacity:0.9; margin-bottom:10px; }
+
+    /* tech badges */
+    .badges{ display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
+    .badge{
+      padding:6px 8px; border-radius:8px; font-size:0.8rem; font-weight:600;
+      background: rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.03);
+    }
+    body.light-mode .badge{ background:#f1f5f9; border:1px solid rgba(15,23,42,0.04); }
+
+    /* Skills */
+    .skill-card{
+      background: rgba(255,255,255,0.03); padding:12px; border-radius:10px;
+      text-align:center; font-weight:600; box-shadow:0 8px 20px rgba(2,6,23,0.35);
+      transition: transform .2s; opacity:0; transform:translateY(18px);
+    }
+    .skill-card.visible{ opacity:1; transform:translateY(0); }
+    .skill-card:hover{ transform:translateY(-6px) }
+    body.light-mode .skill-card{ background:#fff; box-shadow:0 8px 18px rgba(2,6,23,0.06); }
+
+    /* contact */
+    .contact-card{
+      padding:12px 14px; border-radius:10px; background:rgba(255,255,255,0.03);
+      box-shadow:0 8px 20px rgba(2,6,23,0.35); transition:transform .2s; opacity:0; transform:translateY(18px);
+    }
+    .contact-card.visible{ opacity:1; transform:translateY(0); }
+    .contact-card:hover{ transform:translateY(-6px) }
+    body.light-mode .contact-card{ background:#fff; box-shadow:0 8px 18px rgba(2,6,23,0.06); }
+
+    /* small visual tweaks */
+    p, li { line-height:1.5; }
+    ul { padding-left:18px; margin:8px 0; }
+    a { color:inherit; text-decoration:underline; }
+    .muted{ opacity:0.85; font-size:0.95rem; }
+
+    /* utilities */
+    .row{ display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+    .flex-col{ display:flex; flex-direction:column; gap:8px; }
+
+    /* responsive header items */
+    .right-controls{ display:flex; gap:8px; align-items:center; }
+    @media(max-width:880px){
+      .nav-links{ display:none; }
+      .hamburger-btn{ display:flex; }
+    }
+    @media(max-width:520px){
+      :root{ --menu-width:280px }
+    }
+  </style>
 </head>
 <body>
-<header>
-  <div class="header-left">
-    <h1>Chandan Kumar Paswan</h1>
-    <div class="designation">Software Developer</div>
-  </div>
-  <div class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></div>
-  <nav id="navMenu">
+
+  <header>
+    <div class="header-left">
+      <div class="name">Chandan Kumar Paswan</div>
+      <div class="designation muted">Software Developer</div>
+    </div>
+
+    <!-- Desktop nav -->
+    <nav class="nav-links" id="navLinks">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#achievements">Achievements</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <!-- Right controls: resume + theme + hamburger -->
+    <div class="right-controls">
+      <a class="resume-btn" href="https://drive.google.com/file/d/1cXS2kgWYGDrFE2SM3Bl-F9GVEroGWmof/view?usp=drivesdk" target="_blank" rel="noopener">View My Resume</a>
+      <button class="theme-toggle" id="themeToggle" title="Toggle theme">🌙</button>
+      <button class="hamburger-btn" id="hamburger" aria-label="Open menu" title="Open menu">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- slide-in side menu -->
+  <div class="side-menu" id="sideMenu" aria-hidden="true">
     <a href="#about">About</a>
     <a href="#experience">Experience</a>
     <a href="#projects">Projects</a>
     <a href="#achievements">Achievements</a>
     <a href="#skills">Skills</a>
     <a href="#contact">Contact</a>
-    <a href="#" class="resume-btn">View My Resume</a>
-  </nav>
-  <button id="themeToggle">🌙</button>
-</header>
+    <a class="resume-btn" href="https://drive.google.com/file/d/1cXS2kgWYGDrFE2SM3Bl-F9GVEroGWmof/view?usp=drivesdk" target="_blank" rel="noopener">View My Resume</a>
+  </div>
 
-<div class="container">
-  <section id="about" class="card">
-    <h2>About Me</h2>
-    <p>I am a passionate <b>Custom Software Engineering Analyst at Accenture</b> with over <b>5 years of professional experience</b> in developing scalable web applications. Previously at Infosys as an Associate Business Analyst and Coworks Solutions Pvt. Ltd as a Software Developer, I specialize in <b>Angular, Node.js, Ag-Grid, Highcharts, and SQL Server</b>. My focus is creating clean, efficient, and performance-driven user experiences.</p>
-  </section>
+  <!-- overlay (clicking closes menu) -->
+  <div class="overlay" id="overlay"></div>
 
-  <section id="experience" class="card">
-    <h2>Experience</h2>
-    <ul>
-      <li><b>Accenture</b> — Custom Software Engineering Analyst (Jul 2024 – Present)</li>
-      <li><b>Infosys</b> — Associate Business Analyst (Oct 2022 – Jul 2024)</li>
-      <li><b>Coworks Solutions Pvt. Ltd</b> — Software Developer (Dec 2020 – Oct 2022)</li>
-    </ul>
-  </section>
+  <main class="container">
 
-  <section id="projects" class="card">
-    <h2>Projects</h2>
-    <p><b>Accenture – MyWizard:</b> Developed automation and workflow modules using Ag-Grid-Angular, Serverless, Azure, Node.js, SQL Server, and Angular.</p>
-    <p><b>Infosys – Airbus Chronos:</b> Built KPI dashboards and performance tracking tools for Airbus using Angular, Highcharts, Socket.io, Node.js, and SQL Server.</p>
-    <p><b>Coworks Solutions Pvt. Ltd – Udyogasetu:</b> Created a public B2B/B2C marketplace for jobs, training, and services using Angular, Ag-Grid-Angular, Strapi, Knex.js, and MySQL.</p>
-    <p><b>Coworks Solutions Pvt. Ltd – Barcode Generator & Scanner:</b> Delivered a web and mobile barcode tracking solution for Kirby Building Systems and Diqu Tech using Node.js, SQL Server, Java, AJAX, HTML, CSS, and JavaScript.</p>
-  </section>
+    <!-- ABOUT -->
+    <section id="about" class="card">
+      <h2>About Me</h2>
+      <p class="muted">
+        I am a passionate Custom Software Engineering Analyst at Accenture with over <strong>5 years</strong> of professional experience building scalable, user-friendly, and high-performing enterprise applications. I have worked at Coworks Solutions Pvt. Ltd, Infosys, and currently at Accenture. I specialize in building interactive dashboards, automation modules, and end-to-end web/mobile solutions using Angular, Node.js, Ag-Grid, Highcharts, SQL Server, and Azure.
+      </p>
+    </section>
 
-  <section id="achievements" class="card">
-    <h2>Achievements</h2>
-    <ul>
-      <li>Improved application performance by ~60% on Airbus Chronos (Infosys).</li>
-      <li>Prevented major production failures by proactively fixing critical issues (Accenture).</li>
-      <li>Developed and deployed public-facing marketplace Udyogasetu (Coworks).</li>
-    </ul>
-  </section>
+    <!-- EXPERIENCE -->
+    <section id="experience" class="card">
+      <h2>Experience</h2>
 
-  <section id="skills" class="card">
-    <h2>Skills</h2>
-    <div class="skills-grid">
-      <div class="skill-item">Angular</div>
-      <div class="skill-item">Node.js</div>
-      <div class="skill-item">Java (Basics)</div>
-      <div class="skill-item">TypeScript</div>
-      <div class="skill-item">Ag-Grid-Angular</div>
-      <div class="skill-item">Highcharts</div>
-      <div class="skill-item">Socket.io</div>
-      <div class="skill-item">Azure</div>
-      <div class="skill-item">Serverless</div>
-      <div class="skill-item">SQL Server</div>
-      <div class="skill-item">Knex.js</div>
-      <div class="skill-item">MySQL</div>
-      <div class="skill-item">HTML / CSS / JavaScript</div>
-      <div class="skill-item">VS Code / Eclipse / Android Studio</div>
-    </div>
-  </section>
+      <div class="grid-2">
+        <article class="item-card" data-animate>
+          <div class="item-head">
+            <div class="flex-col">
+              <div class="item-title">Accenture</div>
+              <div class="item-sub">Custom Software Engineering Analyst — 30th July 2024 – Present</div>
+            </div>
+          </div>
+          <p class="muted">Working on automation, workflow modules and production-critical applications; proactive issue resolution and performance improvements.</p>
+          <div class="badges" aria-hidden>
+            <span class="badge">Angular</span>
+            <span class="badge">Node.js</span>
+            <span class="badge">Azure</span>
+            <span class="badge">Ag-Grid</span>
+          </div>
+        </article>
 
-  <section id="contact" class="card">
-    <h2>Contact</h2>
-    <div class="contact-grid">
-      <div class="contact-card">📧 chandan11kr5511@gmail.com</div>
-      <div class="contact-card">🔗 <a href="https://www.linkedin.com/in/chandan-kumar-paswan-592046135" target="_blank">LinkedIn Profile</a></div>
-      <div class="contact-card">💻 <a href="https://github.com/chandan11kr" target="_blank">GitHub</a></div>
-    </div>
-  </section>
-</div>
+        <article class="item-card" data-animate>
+          <div class="item-head">
+            <div class="flex-col">
+              <div class="item-title">Infosys</div>
+              <div class="item-sub">Associate Business Analyst — 10th October 2022 – 24th July 2024</div>
+            </div>
+          </div>
+          <p class="muted">Delivered KPI dashboards and performance tracking solutions; contributed to major performance improvements and analytics features.</p>
+          <div class="badges" aria-hidden>
+            <span class="badge">Angular</span>
+            <span class="badge">Highcharts</span>
+            <span class="badge">Socket.io</span>
+            <span class="badge">SQL Server</span>
+          </div>
+        </article>
 
-<script>
-const menuToggle=document.getElementById("menuToggle");
-const navMenu=document.getElementById("navMenu");
-const themeToggle=document.getElementById("themeToggle");
-menuToggle.addEventListener("click",()=>{navMenu.classList.toggle("active");});
-document.addEventListener("click",e=>{
-  if(!navMenu.contains(e.target)&&!menuToggle.contains(e.target)){
-    navMenu.classList.remove("active");
-  }
-});
-navMenu.querySelectorAll("a").forEach(link=>{
-  link.addEventListener("click",()=>navMenu.classList.remove("active"));
-});
-themeToggle.addEventListener("click",()=>{
-  document.body.classList.toggle("light-mode");
-  themeToggle.textContent=document.body.classList.contains("light-mode")?"🌞":"🌙";
-});
-</script>
+        <article class="item-card" data-animate>
+          <div class="item-head">
+            <div class="flex-col">
+              <div class="item-title">Coworks Solutions Pvt. Ltd</div>
+              <div class="item-sub">Software Developer — 14th December 2020 – 7th October 2022</div>
+            </div>
+          </div>
+          <p class="muted">Built B2B/B2C marketplace and barcode solutions for manufacturing/shipment tracking for clients such as Kirby Building Systems and Diqu Tech.</p>
+          <div class="badges" aria-hidden>
+            <span class="badge">Angular</span>
+            <span class="badge">MySQL</span>
+            <span class="badge">Node.js</span>
+            <span class="badge">Strapi</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="card">
+      <h2>Projects</h2>
+
+      <div class="grid-2">
+        <article class="item-card" data-animate>
+          <div class="item-head">
+            <div class="flex-col">
+              <div class="item-title">Accenture - MyWizard</div>
+              <div class="item-sub">Developed automation and workflow modules</div>
+            </div>
+            <div class="muted">Role: Developer</div>
+          </div>
+          <p class="muted">Developed automation and workflow modules using Ag-Grid-Angular, Serverless, Azure, Node.js, SQL Server, and Angular.</p>
+          <div class="badges">
+            <span class="badge">Ag-Grid-Angular</span>
+            <span class="badge">Serverless</span>
+            <span class="badge">Azure</span>
+            <span class="badge">Node.js</span>
+            <span class="badge">SQL Server</span>
+          </div>
+        </article>
+
+        <article class="item-card" data-animate>
+          <div class="item-head">
+            <div class="flex-col">
+              <div class="item-title">Infosys - Airbus Chronos</div>
+              <div class="item-sub">KPI dashboards & performance tracking</div>
+            </div>
+            <div class="muted">Role: Developer</div>
+          </div>
+          <p class="muted">Built KPI dashboards and performance tracking tools for Airbus using Angular, Highcharts, Socket.io, Node.js, and SQL Server.</p>
+          <div class="badges">
+            <span class="badge">Angular</span>
+            <span class="badge">Highcharts</span>
+            <span class="badge">Socket.io</span>
+            <span class="badge">Node.js</span>
+          </div>
+        </article>
+
+        <article class="item-card" data-animate>
+          <div class="item-head">
+            <div class="flex-col">
+              <div class="item-title">Coworks Solutions Pvt. Ltd - Udyogasetu</div>
+              <div class="item-sub">Public B2B/B2C marketplace</div>
+            </div>
+            <div class="muted">Role: Full-stack contributor</div>
+          </div>
+          <p class="muted">Developed a public B2B and B2C marketplace application for jobs, training, and services using Angular, Ag-Grid-Angular, Strapi, Knex.js, and MySQL.</p>
+          <div class="badges">
+            <span class="badge">Angular</span>
+            <span class="badge">Ag-Grid</span>
+            <span class="badge">Strapi</span>
+            <span class="badge">MySQL</span>
+          </div>
+        </article>
+
+        <article class="item-card" data-animate>
+          <div class="item-head">
+            <div class="flex-col">
+              <div class="item-title">Coworks Solutions Pvt. Ltd - Barcode Generator & Scanner</div>
+              <div class="item-sub">Web & mobile barcode tracking</div>
+            </div>
+            <div class="muted">Role: Developer</div>
+          </div>
+          <p class="muted">Developed a web and mobile solution for generating and scanning barcodes to track manufacturing and shipment for clients like Kirby Building Systems and Diqu Tech. Tech stack: Node.js, SQL Server, Java, AJAX, HTML, CSS, JavaScript.</p>
+          <div class="badges">
+            <span class="badge">Node.js</span>
+            <span class="badge">SQL Server</span>
+            <span class="badge">Java</span>
+            <span class="badge">HTML/CSS/JS</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ACHIEVEMENTS -->
+    <section id="achievements" class="card">
+      <h2>Achievements</h2>
+      <ul class="muted">
+        <li>Improved application performance by ~60% on Airbus Chronos (Infosys).</li>
+        <li>Prevented major production failures by proactively identifying and fixing critical code issues (Accenture).</li>
+        <li>Developed public-facing marketplace Udyogasetu and contributed end-to-end features.</li>
+      </ul>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="card">
+      <h2>Skills</h2>
+      <div class="grid-2">
+        <div class="skill-card" data-animate>Angular</div>
+        <div class="skill-card" data-animate>Node.js</div>
+        <div class="skill-card" data-animate>Java (Basics)</div>
+        <div class="skill-card" data-animate>TypeScript</div>
+        <div class="skill-card" data-animate>Ag-Grid-Angular</div>
+        <div class="skill-card" data-animate>Highcharts</div>
+        <div class="skill-card" data-animate>Socket.io</div>
+        <div class="skill-card" data-animate>Azure</div>
+        <div class="skill-card" data-animate>Serverless</div>
+        <div class="skill-card" data-animate>SQL Server (Stored Procedures)</div>
+        <div class="skill-card" data-animate>Knex.js</div>
+        <div class="skill-card" data-animate>MySQL</div>
+        <div class="skill-card" data-animate>HTML / CSS / JavaScript</div>
+        <div class="skill-card" data-animate>Visual Studio Code / Eclipse / Android Studio</div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="card">
+      <h2>Contact</h2>
+      <div class="grid-2 contact-grid">
+        <div class="contact-card" data-animate>📧 chandan11kr5511@gmail.com</div>
+        <div class="contact-card" data-animate>🔗 <a href="https://www.linkedin.com/in/chandan-kumar-paswan-592046135" target="_blank" rel="noopener">LinkedIn</a></div>
+        <div class="contact-card" data-animate>💻 <a href="https://github.com/chandan11kr" target="_blank" rel="noopener">GitHub</a></div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // theme toggle (persist)
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
+    const savedTheme = localStorage.getItem('ckp_theme');
+    if (savedTheme === 'light') {
+      body.classList.add('light-mode');
+      themeToggle.textContent = '🌞';
+    } else {
+      themeToggle.textContent = '🌙';
+    }
+    themeToggle.addEventListener('click', () => {
+      body.classList.toggle('light-mode');
+      const isLight = body.classList.contains('light-mode');
+      themeToggle.textContent = isLight ? '🌞' : '🌙';
+      localStorage.setItem('ckp_theme', isLight ? 'light' : 'dark');
+    });
+
+    // side menu + overlay logic
+    const hamburger = document.getElementById('hamburger');
+    const sideMenu = document.getElementById('sideMenu');
+    const overlay = document.getElementById('overlay');
+
+    function openMenu(){
+      sideMenu.classList.add('open');
+      overlay.classList.add('show');
+      sideMenu.setAttribute('aria-hidden','false');
+      // change hamburger to X
+      hamburger.innerHTML = '&#10005;'; // ×
+    }
+    function closeMenu(){
+      sideMenu.classList.remove('open');
+      overlay.classList.remove('show');
+      sideMenu.setAttribute('aria-hidden','true');
+      // reset hamburger bars
+      hamburger.innerHTML = '<span class="bar"></span><span class="bar"></span><span class="bar"></span>';
+    }
+
+    hamburger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (sideMenu.classList.contains('open')) closeMenu(); else openMenu();
+    });
+
+    // close when clicking overlay
+    overlay.addEventListener('click', () => closeMenu());
+
+    // close when clicking any side-menu link
+    sideMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => closeMenu());
+    });
+
+    // ensure navLinks (desktop) links also close side menu if open (safety)
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.addEventListener('click', () => closeMenu());
+    });
+
+    // close on escape
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape') closeMenu();
+    });
+
+    // IntersectionObserver for fade-up
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.12});
+
+    // observe elements that should animate
+    document.querySelectorAll('section.card, .item-card, .skill-card, .contact-card').forEach(el => observer.observe(el));
+  </script>
 </body>
 </html>
