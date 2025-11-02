@@ -1,346 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chandan Kumar Paswan - Portfolio</title>
-  <style>
-    :root {
-      --primary: #6a5acd;
-      --secondary: #7b68ee;
-      --bg-dark: #0f172a;
-      --bg-light: #f8fafc;
-      --text-dark: #e2e8f0;
-      --text-light: #1e293b;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Chandan Kumar Paswan - Portfolio</title>
+<style>
+  :root {
+    --primary:#6a5acd;
+    --secondary:#7b68ee;
+    --bg-dark:#0f172a;
+    --bg-light:#f8fafc;
+    --text-dark:#e2e8f0;
+    --text-light:#1e293b;
+  }
+  body {
+    font-family:'Poppins',sans-serif;
+    margin:0;padding:0;
+    background:var(--bg-dark);
+    color:var(--text-dark);
+    transition:background .4s,color .4s;
+  }
+  body.light-mode{background:var(--bg-light);color:var(--text-light);}
+  /* ===== Header ===== */
+  header{
+    position:sticky;top:0;z-index:999;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:14px 28px;
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid rgba(255,255,255,0.1);
+  }
+  body.light-mode header{background:rgba(255,255,255,0.8);border-color:#ddd;}
+  .header-left h1{margin:0;font-size:1.25rem;color:#fff;}
+  .designation{font-size:.85rem;opacity:.85;margin-top:-4px;}
+  body.light-mode .header-left h1,body.light-mode .designation{color:var(--text-light);}
+  nav{display:flex;gap:22px;align-items:center;}
+  nav a{
+    color:#fff;text-decoration:none;font-weight:500;transition:opacity .3s;
+  }
+  nav a:hover{opacity:.8;}
+  body.light-mode nav a{color:var(--text-light);}
+  .menu-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;}
+  .menu-toggle span{width:24px;height:3px;background:#fff;border-radius:2px;}
+  body.light-mode .menu-toggle span{background:var(--text-light);}
+  #themeToggle{
+    background:#fff;border:none;border-radius:50%;
+    width:32px;height:32px;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;
+    color:var(--primary);box-shadow:0 2px 6px rgba(0,0,0,0.3);
+    transition:transform .3s;
+  }
+  #themeToggle:hover{transform:rotate(20deg);}
+  /* ===== Sections ===== */
+  .container{max-width:1000px;margin:40px auto;padding:0 20px;}
+  section{margin-bottom:40px;}
+  .card{
+    background:rgba(255,255,255,0.06);
+    border-radius:12px;padding:24px;
+    box-shadow:0 6px 20px rgba(0,0,0,0.25);
+    backdrop-filter:blur(12px);
+    transition:all .3s;
+  }
+  body.light-mode .card{background:#fff;box-shadow:0 6px 16px rgba(0,0,0,0.1);}
+  .card:hover{transform:translateY(-4px);}
+  h2{
+    font-size:1.5rem;margin-bottom:12px;position:relative;display:inline-block;
+  }
+  h2::after{
+    content:"";position:absolute;left:0;bottom:-5px;width:100%;height:3px;
+    background:linear-gradient(90deg,var(--primary),var(--secondary));
+    border-radius:2px;animation:gradientMove 3s linear infinite;
+  }
+  @keyframes gradientMove{0%{background-position:0%}100%{background-position:200%}}
+  .resume-btn{
+    display:inline-block;padding:10px 18px;
+    background:linear-gradient(90deg,var(--primary),var(--secondary));
+    color:#fff;border-radius:8px;text-decoration:none;font-weight:600;
+    box-shadow:0 4px 12px rgba(0,0,0,0.25);transition:all .3s;
+  }
+  .resume-btn:hover{opacity:.9;transform:translateY(-2px);}
+  .skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+  .skill-item{
+    text-align:center;padding:10px;border-radius:10px;font-weight:500;
+    background:rgba(255,255,255,0.08);box-shadow:0 2px 8px rgba(0,0,0,0.25);
+    transition:all .3s;
+  }
+  body.light-mode .skill-item{background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.12);}
+  .skill-item:hover{
+    background:linear-gradient(90deg,var(--primary),var(--secondary));color:#fff;
+  }
+  .contact-grid{display:grid;gap:12px;}
+  .contact-card{
+    padding:12px 14px;border-radius:10px;
+    background:rgba(255,255,255,0.08);box-shadow:0 2px 8px rgba(0,0,0,0.25);
+    transition:all .3s;
+  }
+  body.light-mode .contact-card{background:#fff;box-shadow:0 2px 8px rgba(0,0,0,0.12);}
+  .contact-card:hover{
+    background:linear-gradient(90deg,var(--primary),var(--secondary));color:#fff;
+  }
+  @media(max-width:768px){
+    nav{
+      display:none;flex-direction:column;position:absolute;top:65px;right:20px;
+      background:linear-gradient(135deg,var(--primary),var(--secondary));
+      padding:14px;border-radius:10px;
     }
-
-    body {
-      font-family: 'Poppins', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: var(--bg-dark);
-      color: var(--text-dark);
-      transition: background 0.4s, color 0.4s;
-    }
-
-    body.light-mode {
-      background-color: var(--bg-light);
-      color: var(--text-light);
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 28px;
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
-      color: #fff;
-      position: sticky;
-      top: 0;
-      z-index: 999;
-    }
-
-    header h1 {
-      font-size: 1.3rem;
-      margin: 0;
-      letter-spacing: 0.5px;
-    }
-
-    nav {
-      display: flex;
-      gap: 22px;
-      align-items: center;
-    }
-
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      font-weight: 500;
-      transition: opacity 0.3s;
-    }
-
-    nav a:hover {
-      opacity: 0.8;
-    }
-
-    .menu-toggle {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-    }
-
-    .menu-toggle span {
-      width: 24px;
-      height: 3px;
-      background-color: #fff;
-      border-radius: 2px;
-    }
-
-    #themeToggle {
-      background: #fff;
-      border: none;
-      border-radius: 50%;
-      width: 32px;
-      height: 32px;
-      cursor: pointer;
-      margin-left: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--primary);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-      transition: transform 0.3s;
-    }
-
-    #themeToggle:hover {
-      transform: rotate(20deg);
-    }
-
-    .container {
-      max-width: 1000px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-
-    section {
-      margin-bottom: 40px;
-    }
-
-    .card {
-      background: rgba(255, 255, 255, 0.06);
-      border-radius: 12px;
-      padding: 24px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-      backdrop-filter: blur(12px);
-      transition: all 0.3s;
-    }
-
-    body.light-mode .card {
-      background: #fff;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
-    }
-
-    .card:hover {
-      transform: translateY(-4px);
-    }
-
-    h2 {
-      font-size: 1.5rem;
-      margin-bottom: 12px;
-      position: relative;
-      display: inline-block;
-    }
-
-    h2::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -5px;
-      width: 100%;
-      height: 3px;
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
-      border-radius: 2px;
-      animation: gradientMove 3s linear infinite;
-    }
-
-    @keyframes gradientMove {
-      0% {background-position: 0%;}
-      100% {background-position: 200%;}
-    }
-
-    .resume-btn {
-      display: inline-block;
-      padding: 10px 18px;
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
-      color: #fff;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: all 0.3s;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-    }
-
-    .resume-btn:hover {
-      opacity: 0.9;
-      transform: translateY(-2px);
-    }
-
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
-
-    .skill-item {
-      text-align: center;
-      padding: 10px;
-      border-radius: 10px;
-      font-weight: 500;
-      background: rgba(255,255,255,0.08);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-      transition: all 0.3s;
-    }
-
-    body.light-mode .skill-item {
-      background: #fff;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-    }
-
-    .skill-item:hover {
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
-      color: #fff;
-    }
-
-    .contact-grid {
-      display: grid;
-      gap: 12px;
-    }
-
-    .contact-card {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 12px 14px;
-      border-radius: 10px;
-      background: rgba(255,255,255,0.08);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-      transition: all 0.3s;
-    }
-
-    body.light-mode .contact-card {
-      background: #fff;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
-    }
-
-    .contact-card:hover {
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
-      color: #fff;
-    }
-
-    @media (max-width: 768px) {
-      nav {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 60px;
-        right: 20px;
-        background: linear-gradient(135deg, var(--primary), var(--secondary));
-        padding: 14px;
-        border-radius: 10px;
-      }
-      nav.active {
-        display: flex;
-      }
-      .menu-toggle {
-        display: flex;
-      }
-    }
-  </style>
+    nav.active{display:flex;}
+    .menu-toggle{display:flex;}
+  }
+</style>
 </head>
 <body>
-  <header>
+<header>
+  <div class="header-left">
     <h1>Chandan Kumar Paswan</h1>
-    <div class="menu-toggle" id="menuToggle">
-      <span></span><span></span><span></span>
-    </div>
-    <nav id="navMenu">
-      <a href="#about">About</a>
-      <a href="#experience">Experience</a>
-      <a href="#projects">Projects</a>
-      <a href="#achievements">Achievements</a>
-      <a href="#skills">Skills</a>
-      <a href="#contact">Contact</a>
-      <a href="#" class="resume-btn">View My Resume</a>
-    </nav>
-    <button id="themeToggle">🌙</button>
-  </header>
-
-  <div class="container">
-    <section id="about" class="card">
-      <h2>About Me</h2>
-      <p>I am a passionate <b>Custom Software Engineering Analyst at Accenture</b> with over <b>5 years of professional experience</b> in building scalable and performance-driven web applications. I have previously worked with Infosys as an Associate Business Analyst and with Coworks Solutions Pvt. Ltd as a Software Developer. I specialize in developing interactive dashboards, automation workflows, and enterprise-scale web solutions using modern web technologies such as Angular, Node.js, Ag-Grid, Highcharts, and SQL Server.</p>
-    </section>
-
-    <section id="experience" class="card">
-      <h2>Experience</h2>
-      <ul>
-        <li><b>Accenture</b> — Custom Software Engineering Analyst (July 2024 - Present)</li>
-        <li><b>Infosys</b> — Associate Business Analyst (October 2022 - July 2024)</li>
-        <li><b>Coworks Solutions Pvt. Ltd</b> — Software Developer (December 2020 - October 2022)</li>
-      </ul>
-    </section>
-
-    <section id="projects" class="card">
-      <h2>Projects</h2>
-      <p><b>Accenture - MyWizard:</b> Developed automation and workflow modules using Ag-Grid-Angular, Serverless, Azure, Node.js, SQL Server, and Angular.</p>
-      <p><b>Infosys - Airbus Chronos:</b> Built KPI dashboards and performance tracking tools for Airbus using Angular, Highcharts, Socket.io, Node.js, and SQL Server.</p>
-      <p><b>Coworks Solutions Pvt. Ltd - Udyogasetu:</b> Developed a public B2B and B2C marketplace application for jobs, training, and services using Angular, Ag-Grid-Angular, Strapi, Knex.js, and MySQL.</p>
-      <p><b>Coworks Solutions Pvt. Ltd - Barcode Generator & Scanner:</b> Developed a web and mobile solution for generating and scanning barcodes to track manufacturing and shipment for clients like Kirby Building Systems and Diqu Tech. Tech stack: Node.js, SQL Server, Java, AJAX, HTML, CSS, JavaScript.</p>
-    </section>
-
-    <section id="achievements" class="card">
-      <h2>Achievements</h2>
-      <ul>
-        <li>Improved application performance by ~60% on Airbus Chronos (Infosys).</li>
-        <li>Prevented major production failures by proactively identifying and fixing critical code issues (Accenture).</li>
-        <li>Developed public-facing marketplace Udyogasetu and contributed end-to-end features.</li>
-      </ul>
-    </section>
-
-    <section id="skills" class="card">
-      <h2>Skills</h2>
-      <div class="skills-grid">
-        <div class="skill-item">Angular</div>
-        <div class="skill-item">Node.js</div>
-        <div class="skill-item">Java (Basics)</div>
-        <div class="skill-item">TypeScript</div>
-        <div class="skill-item">Ag-Grid-Angular</div>
-        <div class="skill-item">Highcharts</div>
-        <div class="skill-item">Socket.io</div>
-        <div class="skill-item">Azure</div>
-        <div class="skill-item">Serverless</div>
-        <div class="skill-item">SQL Server</div>
-        <div class="skill-item">Knex.js</div>
-        <div class="skill-item">MySQL</div>
-        <div class="skill-item">HTML / CSS / JavaScript</div>
-        <div class="skill-item">VS Code / Eclipse / Android Studio</div>
-      </div>
-    </section>
-
-    <section id="contact" class="card">
-      <h2>Contact</h2>
-      <div class="contact-grid">
-        <div class="contact-card">📧 chandan11kr5511@gmail.com</div>
-        <div class="contact-card">🔗 <a href="https://www.linkedin.com/in/chandan-kumar-paswan-592046135" target="_blank">LinkedIn Profile</a></div>
-        <div class="contact-card">💻 <a href="https://github.com/chandan11kr" target="_blank">GitHub</a></div>
-      </div>
-    </section>
+    <div class="designation">Software Developer</div>
   </div>
+  <div class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></div>
+  <nav id="navMenu">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#achievements">Achievements</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+    <a href="#" class="resume-btn">View My Resume</a>
+  </nav>
+  <button id="themeToggle">🌙</button>
+</header>
 
-  <script>
-    const menuToggle = document.getElementById("menuToggle");
-    const navMenu = document.getElementById("navMenu");
-    const themeToggle = document.getElementById("themeToggle");
+<div class="container">
+  <section id="about" class="card">
+    <h2>About Me</h2>
+    <p>I am a passionate <b>Custom Software Engineering Analyst at Accenture</b> with over <b>5 years of professional experience</b> in developing scalable web applications. Previously at Infosys as an Associate Business Analyst and Coworks Solutions Pvt. Ltd as a Software Developer, I specialize in <b>Angular, Node.js, Ag-Grid, Highcharts, and SQL Server</b>. My focus is creating clean, efficient, and performance-driven user experiences.</p>
+  </section>
 
-    menuToggle.addEventListener("click", () => {
-      navMenu.classList.toggle("active");
-    });
+  <section id="experience" class="card">
+    <h2>Experience</h2>
+    <ul>
+      <li><b>Accenture</b> — Custom Software Engineering Analyst (Jul 2024 – Present)</li>
+      <li><b>Infosys</b> — Associate Business Analyst (Oct 2022 – Jul 2024)</li>
+      <li><b>Coworks Solutions Pvt. Ltd</b> — Software Developer (Dec 2020 – Oct 2022)</li>
+    </ul>
+  </section>
 
-    document.addEventListener("click", (e) => {
-      if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
-        navMenu.classList.remove("active");
-      }
-    });
+  <section id="projects" class="card">
+    <h2>Projects</h2>
+    <p><b>Accenture – MyWizard:</b> Developed automation and workflow modules using Ag-Grid-Angular, Serverless, Azure, Node.js, SQL Server, and Angular.</p>
+    <p><b>Infosys – Airbus Chronos:</b> Built KPI dashboards and performance tracking tools for Airbus using Angular, Highcharts, Socket.io, Node.js, and SQL Server.</p>
+    <p><b>Coworks Solutions Pvt. Ltd – Udyogasetu:</b> Created a public B2B/B2C marketplace for jobs, training, and services using Angular, Ag-Grid-Angular, Strapi, Knex.js, and MySQL.</p>
+    <p><b>Coworks Solutions Pvt. Ltd – Barcode Generator & Scanner:</b> Delivered a web and mobile barcode tracking solution for Kirby Building Systems and Diqu Tech using Node.js, SQL Server, Java, AJAX, HTML, CSS, and JavaScript.</p>
+  </section>
 
-    navMenu.querySelectorAll("a").forEach(link => {
-      link.addEventListener("click", () => navMenu.classList.remove("active"));
-    });
+  <section id="achievements" class="card">
+    <h2>Achievements</h2>
+    <ul>
+      <li>Improved application performance by ~60% on Airbus Chronos (Infosys).</li>
+      <li>Prevented major production failures by proactively fixing critical issues (Accenture).</li>
+      <li>Developed and deployed public-facing marketplace Udyogasetu (Coworks).</li>
+    </ul>
+  </section>
 
-    themeToggle.addEventListener("click", () => {
-      document.body.classList.toggle("light-mode");
-      themeToggle.textContent = document.body.classList.contains("light-mode") ? "🌞" : "🌙";
-    });
-  </script>
+  <section id="skills" class="card">
+    <h2>Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-item">Angular</div>
+      <div class="skill-item">Node.js</div>
+      <div class="skill-item">Java (Basics)</div>
+      <div class="skill-item">TypeScript</div>
+      <div class="skill-item">Ag-Grid-Angular</div>
+      <div class="skill-item">Highcharts</div>
+      <div class="skill-item">Socket.io</div>
+      <div class="skill-item">Azure</div>
+      <div class="skill-item">Serverless</div>
+      <div class="skill-item">SQL Server</div>
+      <div class="skill-item">Knex.js</div>
+      <div class="skill-item">MySQL</div>
+      <div class="skill-item">HTML / CSS / JavaScript</div>
+      <div class="skill-item">VS Code / Eclipse / Android Studio</div>
+    </div>
+  </section>
+
+  <section id="contact" class="card">
+    <h2>Contact</h2>
+    <div class="contact-grid">
+      <div class="contact-card">📧 chandan11kr5511@gmail.com</div>
+      <div class="contact-card">🔗 <a href="https://www.linkedin.com/in/chandan-kumar-paswan-592046135" target="_blank">LinkedIn Profile</a></div>
+      <div class="contact-card">💻 <a href="https://github.com/chandan11kr" target="_blank">GitHub</a></div>
+    </div>
+  </section>
+</div>
+
+<script>
+const menuToggle=document.getElementById("menuToggle");
+const navMenu=document.getElementById("navMenu");
+const themeToggle=document.getElementById("themeToggle");
+menuToggle.addEventListener("click",()=>{navMenu.classList.toggle("active");});
+document.addEventListener("click",e=>{
+  if(!navMenu.contains(e.target)&&!menuToggle.contains(e.target)){
+    navMenu.classList.remove("active");
+  }
+});
+navMenu.querySelectorAll("a").forEach(link=>{
+  link.addEventListener("click",()=>navMenu.classList.remove("active"));
+});
+themeToggle.addEventListener("click",()=>{
+  document.body.classList.toggle("light-mode");
+  themeToggle.textContent=document.body.classList.contains("light-mode")?"🌞":"🌙";
+});
+</script>
 </body>
 </html>
