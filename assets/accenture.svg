@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 120">
+  <!-- No background - transparent -->
+  
+  <!-- Purple ">" chevron - positioned above the "t" -->
+  <polygon points="210,8  233,28  210,48  220,48  243,28  220,8" fill="#a100ff"/>
+
+  <!-- "accenture" ultra-bold black -->
+  <text
+    x="10"
+    y="105"
+    font-family="'Arial Black', 'Arial', sans-serif"
+    font-size="58"
+    font-weight="900"
+    fill="#1a1a1a"
+    letter-spacing="-1.5"
+  >accenture</text>
+</svg>
